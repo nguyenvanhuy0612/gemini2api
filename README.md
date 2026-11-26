@@ -3,8 +3,8 @@
 <img src="docs/logo.png" width="128" height="128" alt="Gemini2API">
 
 <h1>Gemini2API</h1>
-<h3>轻量级 Gemini Web 反向代理</h3>
-<p>一套代码兼容 OpenAI / Claude / Gemini 三大主流 AI SDK，纯异步架构，零官方 Key，Docker 快速部署。</p>
+<h3>Lightweight Gemini Web Reverse Proxy</h3>
+<p>Single codebase compatible with OpenAI / Claude / Gemini SDKs, pure async architecture, zero official keys, Docker quick deployment.</p>
 
 <p>
   <img src="https://img.shields.io/badge/Python-3.12+-blue?style=flat-square&logo=python&logoColor=white" alt="Python">
@@ -13,24 +13,23 @@
   <img src="https://img.shields.io/badge/Docker-20.10+-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
   <img src="https://img.shields.io/badge/Chrome%20%7C%20Edge-Latest-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Browser">
   <img src="https://img.shields.io/badge/License-Non--Commercial-red?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/version-v1.6.57-success?style=flat-square" alt="Version">
 </p>
 
 <p>
-  <a href="#-最近更新">最近更新</a> &bull;
-  <a href="#-核心功能">核心功能</a> &bull;
-  <a href="#-系统要求">系统要求</a> &bull;
-  <a href="#-快速部署">快速部署</a> &bull;
-  <a href="#-接入示例">接入示例</a> &bull;
-  <a href="#-api-端点">API 端点</a> &bull;
-  <a href="#-访问密钥">访问密钥</a> &bull;
-  <a href="#-配置说明">配置说明</a> &bull;
-  <a href="#-注意事项">注意事项</a> &bull;
-  <a href="#-开发路线">开发路线</a>
+  <a href="#-recent-updates">Recent Updates</a> &bull;
+  <a href="#-core-features">Core Features</a> &bull;
+  <a href="#-system-requirements">System Requirements</a> &bull;
+  <a href="#-quick-deployment">Quick Deployment</a> &bull;
+  <a href="#-integration-examples">Integration Examples</a> &bull;
+  <a href="#-api-endpoints">API Endpoints</a> &bull;
+  <a href="#-access-keys">Access Keys</a> &bull;
+  <a href="#-configuration">Configuration</a> &bull;
+  <a href="#-important-notes">Important Notes</a> &bull;
+  <a href="#-roadmap">Roadmap</a>
 </p>
 
 <p>
-  📖 文档语言：<a href="docs/zh-CN/README.md">简体中文</a> | <a href="docs/zh-TW/README.md">繁體中文</a> | <a href="docs/en/README.md">English</a> | <a href="docs/ja/README.md">日本語</a> | <a href="docs/ko/README.md">한국어</a>
+  📖 Documentation: <a href="docs/zh-CN/README.md">简体中文</a> | <a href="docs/zh-TW/README.md">繁體中文</a> | English | <a href="docs/ja/README.md">日本語</a> | <a href="docs/ko/README.md">한국어</a>
 </p>
 
 <br>
@@ -43,290 +42,250 @@
 ---
 
 > [!NOTE]
-> 本项目仅供研究和学习用途，请合理使用，不要用于任何商业目的。
+> **Fork / Monorepo Notice**: This repository is a customized English-first monorepo forked from [`xwteam/gemini2api`](https://github.com/xwteam/gemini2api), bundling the Chrome extension ([`extension/`](extension/)) and automated localization/update scripts ([`scripts/`](scripts/)). See [CUSTOMIZATIONS.md](CUSTOMIZATIONS.md) for the full list of changes from upstream.
+
+> [!NOTE]
+> This project is for research and learning purposes only. Please use it responsibly and do not use it for any commercial purposes.
 
 > [!WARNING]
-> 本项目与 Google 无关。项目通过逆向工程获取的浏览器 Cookie 实现功能，可能不符合 Google 服务条款。使用风险自负，作者不对任何账号处罚或数据丢失承担责任。
+> This project is not affiliated with Google. It uses reverse-engineered browser cookies to access Gemini Web, which may violate Google's Terms of Service. Use at your own risk. The author is not responsible for any account penalties or data loss.
 
 > [!TIP]
-> 建议搭配 Gemini Pro 及以上订阅使用，以获得更完整的模型访问权限和更稳定的体验。
+> It is recommended to use Gemini Pro or higher subscription for complete model access and stable experience.
 
 > [!IMPORTANT]
-> 由于 Google 风控策略限制，Cookie 会话目前约 2 小时后会被强制失效，暂未找到完美的长期保活方案。一个思路是用**本地浏览器（住宅 IP）**自动刷新并回传 Cookie —— 配套的浏览器插件 [**gemini2api-plugin**](https://github.com/xwteam/gemini2api-plugin) 正在尝试这个方向。如果您在这方面有经验或思路，非常欢迎通过 [Issue](https://github.com/xwteam/gemini2api/issues) 或 PR 分享，期待社区的智慧。
+> Due to Google's risk control policies, cookie sessions typically expire after about 2 hours. We haven't found a perfect long-term solution yet. If you have experience or ideas on this, please share them via [Issue](https://github.com/xwteam/gemini2api/issues) or PR. We look forward to community wisdom.
 
 ---
 
-## 📝 最近更新
+## 📝 Recent Updates
 
-> 仅列出最近 10 条更新，完整更新日志请查看 [CHANGELOG.md](CHANGELOG.md)。
+> Showing the 10 most recent updates. For the complete changelog, see [CHANGELOG.md](CHANGELOG.md).
 
-| 日期 | 更新内容 |
-|------|----------|
-| 2026-11-25 10:52:00 | v1.6.57 - 🩹 **修复模型测试页直接打开卡在加载中**：直接打开或刷新 #playground 不再停在加载中；若尚无模型会自动加载一次，已加载则不重置已选，仪表盘刷新列表时也会保留当前所选模型。 |
-| 2026-11-25 10:39:00 | v1.6.56 - ⏱️ **真实耗时与测试指标**：修复流式日志只记开始（2–5ms）错误，改记至流结束并加 ttft_ms，日志页同步显示；模型测试页显示思考、首字、字/秒与总耗时、实时等待计时及「不思考（最快）」。实测 gemini-4-neon 不思考约 8 秒、low 4～110 秒，正文输出约 1 秒，网关为毫秒级。 |
-| 2026-11-24 23:17:00 | v1.6.55 - 👤 **直贴整段 Cookie、改标签与小内存**：添加账号可直接粘贴完整浏览器 Cookie，无需先加再补更新，并拦截重复账号或空输入；面板卡片可直接改标签（限长度）；README 新增小内存指南（3 账号约 85–105 MB 内存、空闲 CPU <1%、请求约 2 ms；推算 256 MB 可跑、推荐 512 MB+，附精简/停用用量统计建议）；感谢 @lianjiexu08-ui（PR #12/#13/#14）。 |
-| 2026-11-24 22:02:00 | v1.6.54 - 🏷️ **模型列表直出网页真名并按账号实时同步**：谷歌改名后，各接口与面板模型列表现直接列出真实名称 gemini-auto、gemini-4-hydrogen、gemini-4-neon 与 gemini-4-carbon（原 4 Argon），后续随网站自动更新。各账号独立维护自己的实时模型，列表取可用或密钥绑定账号的并集，请求只发往持有该模型的账号。旧名、无版本别名与历史真名继续可用，白名单、熔断与计费互通，并修复 4 Carbon 错名且超时调为 300 秒。 |
-| 2026-11-24 20:30:00 | v1.6.53 - 🔑 **谷歌改版后恢复登录**：11 月 20 日起谷歌要求整套 Cookie（含 gemini.google.com 的 OSID），只给 __Secure-1PSID/1PSIDTS 会被跳到登录页，旧版却把登录页当成登录成功，一直以访客身份运行（只剩一个 Auto 模型，其他模型报 400）。现在接收整套 Cookie 并按各自域名发送，被跳到登录页会如实报过期并提示处理方法；浏览器插件需升级到 1.4.0，或在面板粘贴整段 Cookie。GHCR 镜像新增 arm64 |
-| 2026-10-27 11:41:00 | v1.6.52 - 🎚️ **模型名后缀选思考档位**：只能填模型名、填不了推理参数的客户端，写 gemini-pro@think=high 就能选档（none / low / medium / high），OpenAI chat、Responses、Anthropic 三个接口通用，后缀优先于请求体里的思考参数 |
-| 2026-10-27 11:17:00 | v1.6.51 - 🧹 **回答里不再夹着引用标记**：带附件或联网检索的回答里，谷歌会插入 [cite_start]、[cite: 1] 这类引用标记（网页里显示成引用小标），过去原样传给客户端（实测带图问颜色回「红色[cite: 1]」）；现在流式、非流式都剥掉，流式还会扣住只到一半的标记，[cite: 附录] 这类正文原样保留 |
-| 2026-10-27 01:08:00 | v1.6.50 - 🧷 **对标补齐一批小加固**：混合账号池里请求落到没有该模型（如 Argon）的账号时，改为换号而不是直接报 400；附件上传遇到网络错误或 5xx 自动重试一次，不再静默丢附件；一次生成多张图时并发下载；新增 GET /v1/models/{model}（OpenAI SDK 的 models.retrieve）；部署文档的多账号说明改为 data/accounts.json |
-| 2026-10-26 23:36:00 | v1.6.49 - 🧩 **客户端兼容性一起补齐**：Codex / OpenAI 新版 SDK 发的 developer 消息（权限、沙箱说明就在里面）过去在 Gemini 路径被整段丢掉，现在按 system 拼进提示词；top_p、stop、response_format、seed 等参数过去被直接丢弃，现在转给第三方模型和兜底；面板里加的账号、面板的兜底开关都存进挂载卷 data/，升级重建容器不再丢；拒答套话再收一句「身为一个语言模型，我没办法提供这方面的帮助。」 |
-| 2026-10-26 22:04:00 | v1.6.48 - 🛠️ **Codex 等走 /v1/responses 用第三方模型时，工具调用能跑通了**：流式（Codex 恒流式）过去只转发文字，第三方模型发起的工具调用被整个丢掉，工具循环跑不起来；现在流式、非流式都会把工具调用变成 function_call 输出项。历史里的工具调用和结果也改按 OpenAI 原生格式（tool_calls + tool_call_id）发给第三方，Codex 带的 web_search 等内置工具会自动略过；Gemini 路径不受影响 |
+| Date | Update |
+|------|--------|
+| 2026-11-25 10:52:00 | v1.6.57 - 🩹 **Fix Playground stuck loading on direct open**: Directly opening or refreshing #playground now loads models once if empty instead of staying stuck loading, avoids resetting your selection, and keeps it when the dashboard refreshes the model list. |
+| 2026-11-25 10:39:00 | v1.6.56 - ⏱️ **Real Latency & Playground Metrics**: Fixed streaming logs recording only response start (2–5ms); latency_ms now measures until stream end and adds ttft_ms, both shown on the Logs page. Playground displays thinking, TTFT, chars/s speed, and total duration, a live waiting timer, and "No thinking (fastest)". Real gemini-4-neon tests take ~8s without thinking vs. 4–110s on low (~1s body output; millisecond gateway overhead). |
+| 2026-11-24 23:17:00 | v1.6.55 - 👤 **Full Cookie Add, Label Edit & Low-Memory Guide**: Adding an account now accepts pasting full browser Cookies directly instead of adding separately and updating again, rejecting duplicate accounts or empty input. Panel account cards support inline label editing with length limits. README adds a low-memory server guide (3 accounts use ~85–105 MB RAM, <1% idle CPU, ~2 ms per request; ~256 MB should suffice, 512 MB+ recommended; tips to trim/disable usage stats). Thanks @lianjiexu08-ui (PR #12, #13, #14). |
+| 2026-11-24 22:02:00 | v1.6.54 - 🏷️ **Real Web Model Names & Per-Account Sync**: Model lists across all APIs and the panel now show Google's live web names (gemini-auto, gemini-4-hydrogen, gemini-4-neon, gemini-4-carbon, formerly 4 Argon) and follow future web renames automatically. Each account tracks its own live model list (handling non-Pro differences); listed models reflect the union of usable or key-bound accounts, routing strictly to accounts holding the requested model. Legacy names (gemini-pro, gemini-flash, gemini-flash-lite, gemini-argon), versionless aliases, and historical names remain callable with compatible whitelists, circuit breaking, and billing, while fixing 4 Carbon naming and setting its timeout to 300s. |
+| 2026-11-24 20:30:00 | v1.6.53 - 🔑 **Signed in again after Google's Nov 20 change**: Google now requires the full cookie set, including gemini.google.com's OSID; with only __Secure-1PSID/1PSIDTS it redirects to the sign-in page, which older versions mistook for a successful login and kept running as a guest (one Auto model, 400 for the rest). The server now takes the full cookie set, sends each cookie to its own domain, and reports a sign-in redirect as expired with a fix hint. Update the browser plugin to 1.4.0 or paste the whole Cookie header in the panel. GHCR images now include arm64 |
+| 2026-10-27 11:41:00 | v1.6.52 - 🎚️ **Pick the thinking level in the model name**: clients that can only set a model name can write gemini-pro@think=high (none / low / medium / high); works on the OpenAI chat, Responses and Anthropic endpoints, and the suffix takes priority over thinking parameters in the request body |
+| 2026-10-27 11:17:00 | v1.6.51 - 🧹 **No more citation markers in answers**: for answers about attachments or grounded in search, Google inserts markers such as [cite_start] and [cite: 1] (shown as citation chips in the web app), which used to reach clients verbatim (a real sample: a color question about an image returned "红色[cite: 1]"). They are now stripped in streaming and non-streaming responses, half-arrived markers are held back while streaming, and look-alikes such as [cite: appendix] are left alone |
+| 2026-10-27 01:08:00 | v1.6.50 - 🧷 **A batch of small hardening fixes**: in a mixed account pool, a request that lands on an account without the model (e.g. Argon) now moves to another account instead of failing with 400; attachment uploads retry once on network errors or 5xx instead of silently dropping the file; multiple generated images download concurrently; new GET /v1/models/{model} (the OpenAI SDK's models.retrieve); the deployment guide's multi-account section now uses data/accounts.json |
+| 2026-10-26 23:36:00 | v1.6.49 - 🧩 **Client compatibility fixes**: developer messages sent by Codex and newer OpenAI SDKs (they carry the permission and sandbox rules) used to be dropped entirely on the Gemini path and are now included as system text; top_p, stop, response_format, seed and similar parameters used to be discarded and are now forwarded to third-party models and the fallback; accounts added in the panel and the panel's fallback switch are now stored in the mounted data/ volume, so recreating the container on upgrade no longer loses them; one more canned refusal sentence is recognised |
+| 2026-10-26 22:04:00 | v1.6.48 - 🛠️ **Tool calls now work on /v1/responses with third-party models (e.g. from Codex)**: streaming requests (Codex always streams) used to forward only text, so tool calls made by the third-party model were dropped and the tool loop could not run. Streaming and non-streaming responses now turn them into function_call output items. Tool calls and results in the history are also sent to the third party in native OpenAI form (tool_calls + tool_call_id), and built-in tools such as web_search are skipped. The Gemini path is unchanged |
 
 ---
 
-## 🌟 核心功能
+## 🌟 Core Features
 
-> 📖 详细使用文档：[简体中文](docs/zh-CN/USAGE.md) | [繁體中文](docs/zh-TW/USAGE.md) | [English](docs/en/USAGE.md) | [日本語](docs/ja/USAGE.md) | [한국어](docs/ko/USAGE.md)
+> 📖 Detailed usage guide: [USAGE.md](docs/en/USAGE.md)
 
-### 🔌 三合一协议兼容
+### 🔌 Triple Protocol Compatibility
 
-- 一个服务同时提供 OpenAI、Claude、Gemini 三种 SDK 格式
-- SSE 流式输出（OpenAI / Claude）+ Chunked JSON（Gemini）
-- 函数调用（Function Calling）三种格式均支持
-- Deep Research 多步骤深度研究
-- **思考档位**：`low` / `medium` / `high` 三档对应网页的低 / 中 / 高，客户端没指定档位时默认 `low`（可设 `off` 换最快），客户端完全没提思考时按默认档开的思考不回传；详见 [🧠 模型与思考档位](#-模型与思考档位)
-- **带附件也走真流式**：带图片/文件的请求不再等全文生成完才吐第一个字（带工具调用的仍为 buffered —— 工具参数必须是完整 JSON 才能解析）
+- Single service provides OpenAI, Claude, and Gemini SDK formats simultaneously
+- SSE streaming (OpenAI / Claude) + Chunked JSON (Gemini)
+- Function calling supported across all three formats
+- Deep Research multi-step research capability
+- **Thinking levels**: `low` / `medium` / `high` match the web client's low / medium / high; when the client does not specify a level the default is `low` (set `off` for maximum speed), and when the client does not mention thinking at all, thinking turned on by the default is not returned. See [🧠 Models & Thinking Levels](#-models--thinking-levels)
+- **Attachments stream for real again**: requests carrying images or files no longer wait for the full generation before emitting the first token (requests carrying tools stay buffered — tool arguments must be complete JSON before they can be parsed)
 
-### 🧠 模型与思考档位
+### 🧠 Models & Thinking Levels
 
-| 列出的真实名字 | 网页名字 | 定位 | 可用的旧名/别名 |
+| Listed Real Name | Web Name | Role | Supported Old Names / Aliases |
 |------|------|------|------|
-| `gemini-auto` | Auto | 自动选择 | `gemini-flash-lite` |
-| `gemini-4-hydrogen` | 4 Hydrogen | 日常 | `gemini-flash`、`gemini-hydrogen` |
-| `gemini-4-neon` | 4 Neon | 深度分析 | `gemini-pro`、`gemini-neon` |
-| `gemini-4-carbon` | 4 Carbon（11-24 前叫 `4 Argon`） | 代码和复杂任务；**账号心跳有该模型时才列出** | `gemini-argon`、`gemini-4-argon`、`gemini-carbon` |
+| `gemini-auto` | Auto | Automatic selection / adapts to your needs | `gemini-flash-lite` |
+| `gemini-4-hydrogen` | 4 Hydrogen | Everyday help (fast; recommended default) | `gemini-flash`, `gemini-hydrogen` |
+| `gemini-4-neon` | 4 Neon | Deeper analysis (higher quality, slower) | `gemini-pro`, `gemini-neon` |
+| `gemini-4-carbon` | 4 Carbon | Code & complex work; **listed only when reported by an account's heartbeat** (called `4 Argon` before 2026-11-24) | `gemini-argon`, `gemini-4-argon`, `gemini-carbon` |
 
-- **模型名随网页动态更新**：模型列表直接展示账号心跳报出的网页真实名字（`gemini-` + 网页名 slug，多账号取并集并保持心跳顺序）；谷歌改名或上新模型后自动跟着变，无需升级服务。`gemini-4-carbon` 等非基础模型仍只在至少一个账号心跳确实报出时才列出。旧名（`gemini-pro` / `gemini-flash` / `gemini-flash-lite` / `gemini-argon` / `gemini-4-argon`）以及不带版本号的类别名（`gemini-neon` / `gemini-hydrogen` / `gemini-carbon`，Auto 本身无版本号）作为隐藏别名继续可调（不再列出）；心跳给过的旧真实名字会持久化保存在 `data/` 中（如 `data/model-names.json`），重启不丢，谷歌以后改名时旧真实名字仍可继续调用。服务刚启动、还没有任何账号心跳成功时，模型列表暂时显示 `gemini-pro` / `gemini-flash` / `gemini-flash-lite`（不会空列表），拿到心跳后切换为网页真实名字。
-- **按账号实时、各算各的**：每个账号只用自己心跳报上来的模型（非 Pro 账号的模型和名字可能不同）。列表是当前可用账号的并集（访问密钥绑定了账号时只算绑定的号，过期 / 禁用的号不算）；请求只会发给自己列表里有这个模型的账号，绝不会悄悄换成别的号上的另一个模型——都没有回 400，有这个模型的号只是忙满回 529。面板账号页能看到每个账号自己的模型。改名历史存在 `data/model-names.json`。
-- **`gemini-flash-thinking` 已下线**：它只是"flash + 思考模式"的假模型，思考现在是每个模型都有的档位（见下）。为兼容老客户端，`gemini-flash-thinking`、`gemini-2.5-flash-thinking`、`gemini-2.0-flash-thinking` 以及内部名 `gemini-3-flash-thinking*` **仍然可以调**（隐藏别名，等同 `gemini-4-hydrogen` / `gemini-flash`），只是不再出现在任何模型列表里；想要思考内容请改传档位参数。 例外：访问密钥的「允许模型」里勾过 `gemini-flash-thinking` 的，这把密钥拉到的模型列表里仍会列出它（免得只勾了它的旧密钥拉到空列表），新签发的密钥请改选 `gemini-4-hydrogen` 或填写 `gemini-flash`（两者互通）。⚠️ 行为变化：老客户端不传档位调用 `gemini-flash-thinking` 时，v1.6.42 会回传思考内容，现在不再回传（没请求的思考一律不回传）。
-- **思考三档**：`low` / `medium` / `high`，对应网页上的低 / 中 / 高三档（实测 `high` 想得最深、也最慢；`low` 与 `medium` 的差别在实测里分不太开）。
-- **默认档 `low`**：客户端**没指定档位**时（没传思考参数的，和要了思考但没说几档的），用「默认思考档位」（环境变量 `DEFAULT_THINKING_LEVEL`，或面板「设置 → 思考」，保存即时生效、无需重启），出厂 `low`。
-  - ⚠️ **速度代价**：实测默认 `low` 比不思考**平均每个请求多约 5 秒**（flash 简单题 6.5 / 8.8 秒 → 8.6 / 16.6 秒）。最看重速度就把默认档设成 **`off`**（不思考、最快，与旧版不传参数时发给上游的请求完全一样）。前置代理有首字节超时的（如 EdgeOne 免费版 15 秒）尤其要留意非流式请求。流式请求也有代价：没提思考的请求按默认档开的思考不回传，**正文要等思考做完才开始出**（期间只有保活帧，连接不会被代理掐断），pro 遇到需要推理的题 `low` 档实测总耗时 36～47 秒 —— 对首字延迟敏感就用 `off`。⚠️ `off`（以及默认档本身）管的是**没指定档位**的请求：没传思考参数的，和要了思考但没说几档的（Claude Code 出厂请求就是这种，所以 Claude Code 默认也跟随默认档）。客户端**明确指定了档位**的（Codex / Cursor 选了 low/medium/high、Anthropic 给了 `budget_tokens`、Claude Code `/effort max` 等）默认档管不到；要所有请求都不思考（真正最快），关掉下面的总闸 `EXTENDED_THINKING_ENABLED=false`。
-  - 客户端**完全没提思考**时，按默认档替它开的思考**只用于生成，绝不回传**：响应里不会多出 `reasoning_content` / `thinking` 块 / 思考 part，结构与不思考时逐字段一致（严格校验的客户端不会因此报错）。客户端**要了思考**（不论给没给档位）才回传思考内容（Gemini 原生仍只看 `includeThoughts`）。默认档是 `off` 时，「要了思考但没给档位」的请求也不思考，自然没有思考可回传。
-- **Claude Code**（新版）：每个请求都带 `adaptive` + `effort: high`（high 是 Claude Code 的出厂值，不换档时每个请求都是它），所以默认跟随这里的默认档（出厂 low，速度优先）；想让某个会话想得更深，在 Claude Code 里执行 `/effort max`（或 `xhigh`）→ high；`/effort low` / `medium` 也照档。
-- **总闸** `EXTENDED_THINKING_ENABLED=false`：一律不思考，连客户端明确要求的思考也忽略，这才是**真正最快**的模式。面板「设置 → 思考 →「允许思考（总闸）」」里一直显示、保存即时生效；与「默认思考档位」的分工：默认档管没指定档位的请求（含 Claude Code 出厂请求），总闸连明确指定了档位的也管。
-- 面板「模型测试」页用**档位选择**（低 / 中 / 高，默认低）代替原来的「思考」勾选框，所选档位以 `reasoning_effort` 发出，思考过程显示在回答上方。 另有「按默认档（不传参数）」一项：不带 `reasoning_effort`，与普通客户端走同一条路，可用来实测设置里「默认思考档位」（含 `off`）的真实速度（思考内容按规定不回传）。
+- **Dynamic real-name listing**: each account's heartbeat reads the current Gemini web model names (`gemini-` + slug of web name), and `/models` returns their union across accounts in heartbeat order. When Google renames or adds models on the web, the listed names follow automatically on the next heartbeat with no service upgrade needed. Non-base models such as `gemini-4-carbon` are listed only when at least one account's heartbeat actually reports them.
+  - **Old names & rename history keep working**: all legacy names (`gemini-pro`, `gemini-flash`, `gemini-flash-lite`, `gemini-argon`, `gemini-4-argon`, `gemini-carbon`) and versionless category names (`gemini-neon`, `gemini-hydrogen`, `gemini-carbon`) continue to work as hidden aliases (no longer listed). Previously seen real names from heartbeats are persisted in `data/` (e.g. `data/model-names.json`) across restarts, so older real names keep working if Google renames a model later.
+  - **Cold-start fallback**: right after startup before any account completes a successful heartbeat, model listings temporarily fall back to `gemini-pro` / `gemini-flash` / `gemini-flash-lite`, then switch to the real web names once heartbeats arrive.
+- **Per account, in real time**: each account only uses the models its own heartbeat reports (non-Pro accounts may have different models and names). The list is the union over usable accounts (only the bound accounts when the access key is bound; expired or disabled accounts don't count). A request only goes to an account whose own list has that model — never silently to a different model on another account: 400 when none has it, 529 when the accounts that have it are all busy. The panel's account page shows each account's own models. The rename history is kept in `data/model-names.json`.
+- **`gemini-flash-thinking` is retired**: it was only a fake "flash + thinking mode" model, and thinking is now a level every model has (see below). For backward compatibility `gemini-flash-thinking`, `gemini-2.5-flash-thinking`, `gemini-2.0-flash-thinking` and the internal names `gemini-3-flash-thinking*` **still work** (hidden aliases equivalent to `gemini-4-hydrogen` / `gemini-flash`); they just no longer appear in any model list. To get thinking content back, pass a level parameter instead. Exception: an access key whose allowed models include `gemini-flash-thinking` still sees it in its model lists (so an old key restricted to it does not get an empty list); for newly issued keys, select `gemini-4-hydrogen` or specify `gemini-flash` (both work interchangeably). ⚠️ Behaviour change: an old client calling `gemini-flash-thinking` without a level got the thinking content back in v1.6.42; it no longer does (unrequested thinking is never returned).
+- **Three thinking levels**: `low` / `medium` / `high`, matching the web client's low / medium / high (measured: `high` thinks deepest and longest; `low` and `medium` could not be told apart in our samples).
+- **Default level `low`**: when the client **does not specify a level** (it passed no thinking parameter at all, or asked for thinking without saying how much), the "default thinking level" applies (env var `DEFAULT_THINKING_LEVEL`, or the panel's Settings → Thinking, effective on save without a restart). Factory default `low`.
+  - ⚠️ **Speed cost**: measured, the default `low` adds **about 5 s per request on average** compared with no thinking (simple flash prompts: 6.5 / 8.8 s → 8.6 / 16.6 s). If speed matters most, set the default to **`off`** (no thinking, fastest; the upstream request is identical to what older versions sent without the parameter). Watch non-streaming requests behind a proxy with a first-byte timeout (e.g. EdgeOne free tier, 15 s).Streaming pays too: for a request that does not mention thinking, the thinking turned on by the default is not returned, so **the answer only starts once thinking is done** (keep-alive frames are sent meanwhile, so proxies do not drop the connection); on a reasoning-heavy prompt, `gemini-pro` at `low` measured 36–47 s in total. If time-to-first-token matters, use `off`. ⚠️ `off` (and the default level itself) covers requests that **do not specify a level**: those that send no thinking parameter, and those that ask for thinking without saying how much (Claude Code's default requests are of this kind, so Claude Code follows the default level too). When the client **explicitly specifies a level** (Codex / Cursor picking low/medium/high, Anthropic sending `budget_tokens`, Claude Code's `/effort max`, and so on), the default level does not apply; to stop all thinking (truly fastest), turn off the master switch below (`EXTENDED_THINKING_ENABLED=false`).
+  - When the client **does not mention thinking at all**, the thinking turned on for it by the default level is **used for generation only and never returned**: no extra `reasoning_content` / `thinking` block / thought part; the response is field-for-field identical to a no-thinking response, so strict clients do not break. Thinking content is returned only when the client **asked for thinking** (whether or not it specified a level); native Gemini still looks only at `includeThoughts`. When the default level is `off`, a request that asked for thinking without a level does not think either, so there is nothing to return.
+- **Claude Code** (current versions): every request carries `adaptive` + `effort: high` (high is Claude Code's factory setting, sent on every request unless you change it), so it follows the default level here (factory `low`, speed first) out of the box; to make a session think deeper, run `/effort max` (or `xhigh`) in Claude Code → high; `/effort low` / `medium` are honoured as well.
+- **Master switch** `EXTENDED_THINKING_ENABLED=false`: never think, even when a client explicitly asks. This is the **truly fastest** mode. It is always shown in the panel under Settings → Thinking → "Allow thinking (master switch)" and takes effect as soon as you save. Division of labour with the default thinking level: the default covers requests that do not specify a level (including Claude Code's default requests), the master switch also covers those that explicitly specify one.
+- The panel's Model Test page replaces the old "Thinking" checkbox with a **level selector** (Low / Medium / High, default Low). The chosen level is sent as `reasoning_effort` and the reasoning is shown above the answer. There is also a "Default level (no parameter)" option: it sends no `reasoning_effort`, taking the same path as an ordinary client, so you can measure the real speed of the default thinking level in Settings (including `off`); the reasoning is not returned, as required.
 
-各协议的档位写法（**没指定档位则用默认档**；完全没提思考的请求，思考不回传）：
+Level parameters per protocol (**no level specified → default level**; a request that does not mention thinking at all gets no thinking back):
 
-| 协议 | 参数 | 取值 → 档位 |
+| Protocol | Parameter | Value → level |
 |------|------|------|
-| OpenAI `/v1/chat/completions` | `reasoning_effort` | `low` / `medium` / `high`；`minimal` → low，`xhigh` → high；`none` → 不思考；认不出的值 → 跟随默认档（不报错） |
-| OpenAI `/v1/responses` | `reasoning.effort`（或顶层 `reasoning_effort`） | 同上 |
-| Anthropic `/v1/messages` | `thinking` | `{"type":"enabled","budget_tokens":N}`：`N<2048` → low，`2048–4095` → medium，`≥4096` → high；`{"type":"adaptive"}` 或 budget 无效 → 看 `output_config.effort`：`low` / `medium` 照档，`xhigh` / `max` → high，`high`（Claude Code 出厂值，视同没专门选档）或没给 → 跟随默认档；`{"type":"disabled"}` → 不思考；认不出的 `type` 按没传处理 |
-| Gemini 原生 `generateContent` / `streamGenerateContent` | `generationConfig.thinkingConfig` | `thinkingLevel`：`LOW` / `MEDIUM` / `HIGH`（`MINIMAL` → low，未指定 → 跟随默认档）；`thinkingBudget`：`0` → 不思考，`-1`（自动）→ 跟随默认档，`>0` 按 2048 / 4096 切点分档；两者都给时以 `thinkingLevel` 为准；只给 `includeThoughts: true` → 跟随默认档；`includeThoughts: true` 才在响应里回传思考（`"thought": true` 的 part） |
+| OpenAI `/v1/chat/completions` | `reasoning_effort` | `low` / `medium` / `high`; `minimal` → low, `xhigh` → high; `none` → no thinking; unrecognized values → follow the default level (no error) |
+| OpenAI `/v1/responses` | `reasoning.effort` (or top-level `reasoning_effort`) | Same as above |
+| Anthropic `/v1/messages` | `thinking` | `{"type":"enabled","budget_tokens":N}`: `N<2048` → low, `2048–4095` → medium, `≥4096` → high; `{"type":"adaptive"}` or an invalid budget → look at `output_config.effort`: `low` / `medium` are used as is, `xhigh` / `max` → high, `high` (Claude Code's factory setting, treated as no explicit choice) or absent → follow the default level; `{"type":"disabled"}` → no thinking; an unrecognized `type` counts as not passed |
+| Gemini native `generateContent` / `streamGenerateContent` | `generationConfig.thinkingConfig` | `thinkingLevel`: `LOW` / `MEDIUM` / `HIGH` (`MINIMAL` → low, unspecified → follow the default level); `thinkingBudget`: `0` → no thinking, `-1` (automatic) → follow the default level, `>0` tiered at 2048 / 4096; when both are given `thinkingLevel` wins; `includeThoughts: true` alone → follow the default level; thinking is returned (as a part with `"thought": true`) only with `includeThoughts: true` |
 
-### 🔐 安全与认证
+### 🔐 Security & Authentication
 
-- API Key 自动生成（`sk-` 前缀 + 32 位随机字符串）
-- 支持 `Authorization: Bearer` 和 `x-api-key` 两种认证方式
-- 首次部署自动生成密钥，用户可自定义修改
-- **访问密钥**：管理员可签发多把可分发的入站密钥，每把独立配置有效期（支持「首次使用起算」的惰性激活）、请求数上限、绑定账号与可用模型，随时可停用或吊销
-- `.env` 的 `API_KEY` 始终全权有效，访问密钥只是**附加**的一层；且访问密钥只能调业务 API，访问不到 `/admin/*`（详见下文 [🔑 访问密钥](#-访问密钥)）
+- Auto-generated API Keys (`sk-` prefix + 32 random characters)
+- Supports both `Authorization: Bearer` and `x-api-key` authentication
+- Auto-generated on first deployment, customizable by users
+- **Access keys**: the administrator can issue any number of distributable inbound keys, each with its own expiry (including lazy activation that starts counting from first use), request limit, bound accounts and allowed models, and each can be disabled or revoked at any time
+- The `API_KEY` in `.env` always keeps full privileges — access keys are an **additional** layer; and an access key can only call the business API, never `/admin/*` (see [🔑 Access Keys](#-access-keys) below)
 
-### 🔄 多账号轮询与 Cookie 自愈
+### 🔄 Multi-Account Load Balancing & Cookie Self-Healing
 
-- **多账号负载均衡**：支持 round-robin（轮询）和 failover（故障转移）两种策略
-- 每账号独立并发控制，避免单账号过载
-- 连续失败自动标记不健康，自动跳过故障账号
-- 后台自动轮换 Cookie，无感续期
-- 热更新 Cookie API，无需重启容器
-- 支持通过 API 动态添加/移除账号
-- 健康检查历史记录，为 Web 面板提供数据支撑
-- **Cookie 轮换循环启动即跑**：以前只有「启动时拿不到 token」才会拉起轮换循环，正常启动的网关从不轮换、Cookie 过几小时就死（[issue #11](https://github.com/xwteam/gemini2api/issues/11)）；现在无条件常驻
-- **两种保活方式自动区分**：浏览器插件推送 cookie 的账号自动改为浏览器保活、服务端不再轮换（双方各自轮换会互相把会话顶下线）；会话被谷歌打回登录页的账号对外如实报 `expired`，插件据此及时补救
-- **识别 HTTP 200 里的拒绝块**：Gemini 有时在 200 响应正文里塞一个拒绝块（限流 / 会话过期 / 上下文超长 / 人机验证）。以前这类请求表现为「空回复」且不触发任何自愈，现在会被转成明确错误并走冷却 + 换号重试，可用 `BARD_ERROR_CODES` 为具体 code 配上语义
-- **多轮续接钉回同一账号**：`/v1/chat/completions` 带 `conversation_id` 的多轮对话，后续轮次钉在服务上一轮的那个账号上，带完整的续接元数据（`[cid, rid, rcid]`）接着上游 Gemini 的同一个会话往下聊、只发最新一条用户消息（以前存的续接参数格式不对、也不记账号，其实每一轮都新开了会话）。流式请求同样续接，`conversation_id` 由客户端自己带上即可。那个账号不可用（过期 / 被删 / 不在访问密钥绑定的账号里 / 满载）、记下的元数据用不了、上一轮由第三方兜底回答、或新的一轮不只是一条用户消息（比如带着工具结果）时，自动改发完整历史、新开会话，绝不只发最后一句而悄悄丢掉上下文；用 Gem 模型时以 Gem 绑定的账号为准
+- **Multi-account load balancing**: Supports round-robin and failover strategies
+- Per-account concurrency control prevents single account overload
+- Automatic health marking for failed accounts, auto-skip unhealthy ones
+- Background cookie rotation for seamless renewal
+- Hot-update Cookie API without container restart
+- Dynamic account add/remove via API
+- Health check history for web panel data support
+- **Cookie rotation loop now always runs**: previously the rotation loop was only started when the gateway *failed* to obtain a token at boot, so a normally started gateway never rotated at all and its cookies died after a few hours ([issue #11](https://github.com/xwteam/gemini2api/issues/11)); it is now unconditionally resident
+- **Two keep-alive modes, told apart automatically**: accounts whose cookies the browser extension pushes switch to browser keep-alive and the server stops rotating them (both sides rotating the same session knock each other offline); accounts whose Google session was redirected to the login page are now reported as `expired`, so the extension can come to the rescue
+- **Reject blocks inside HTTP 200 are now recognized**: Gemini sometimes returns a reject block in the body of a 200 response (rate limit / session expired / context too long / CAPTCHA). Such requests used to surface as an "empty reply" and triggered no self-healing at all; they are now turned into an explicit error that goes through cooldown + account failover, and `BARD_ERROR_CODES` lets you attach a meaning to specific codes
+- **Multi-turn `conversation_id` resumes on the same account**: on `/v1/chat/completions`, later turns of a conversation are pinned to the account that served the previous turn and carry the full continuation metadata (`[cid, rid, rcid]`), so the upstream Gemini conversation really continues and only the newest user message is sent (previously the stored continuation had the wrong format and the account was not remembered, so every turn actually opened a new conversation). Streaming requests continue too, as long as the client sends its own `conversation_id`. If that account is unavailable (expired / removed / outside the access key's bound accounts / at capacity), the stored metadata is unusable, the previous turn was answered by the third-party fallback, or the new turn is more than a single user message (for example it carries tool results), the full history is resent as a new conversation instead — context is never silently dropped. With a Gem model, the Gem's bound account wins
 
-### 🛡 反检测与协议伪装
+### 🛡 Anti-Detection & Protocol Spoofing
 
-- **TLS 指纹一致性**：UA、Sec-Ch-Ua、curl_cffi impersonate 三者版本始终同步（当前 Chrome 124）
-- **动态请求头**：按 Chrome 真实顺序排列，根据请求类型（导航 GET / API POST）动态调整 Sec-Fetch-* 值
-- **完整 Cookie 持久化**：自动捕获所有响应 Cookie 并持久化到磁盘，跨重启保留
-- **Cookie 域名隔离**：每次请求前清除 session 内部 cookie，防止跨域名累积冲突
-- **Chrome 版本自动同步**：每 24 小时轮询 Google 版本 API，检测到新版本自动更新指纹配置
-- **请求时间抖动**：模拟人类操作间隔（导航 200-800ms / API 50-300ms / Cookie 轮换 1-3s）
-- **版本降级策略**：当 curl_cffi 不支持最新 Chrome 版本时，自动使用最近的可用版本
+- **TLS fingerprint consistency**: UA, Sec-Ch-Ua, curl_cffi impersonate always synchronized (Chrome 124)
+- **Dynamic request headers**: Arranged in Chrome's real order, dynamically adjust Sec-Fetch-* based on request type
+- **Complete cookie persistence**: Auto-capture all response cookies and persist to disk across restarts
+- **Cookie domain isolation**: Clear session cookies before each request to prevent cross-domain conflicts
+- **Chrome version auto-sync**: Poll Google version API every 24 hours, auto-update fingerprint on new version
+- **Request time jitter**: Simulate human operation intervals (navigation 200-800ms / API 50-300ms / cookie rotation 1-3s)
+- **Version fallback strategy**: Auto-use nearest available version when curl_cffi doesn't support latest Chrome
 
-### 🖥 Web 管理面板
+### 🖥 Web Management Panel
 
-- 中文可视化管理界面，API Key 登录认证
-- 右上角控制栏：主题切换、服务重启、登出
-- 仪表盘：运行时间实时计时、二维码卡片（支持图片放大）、系统信息（版本/Python/OS/内存/CPU/PID/运行模式）、配置管理（轮换策略/并发上限）、账号状态总览、可用模型列表
-- **热更新资源**：`api/` 目录 volume 挂载，二维码图片和文字配置修改后刷新页面即生效，无需重建容器
-- 账号管理：添加账号（可直接粘贴整段 Cookie）/删除账号、在线编辑标签、单独更新 Cookie、健康检测
-- **设置页面**：可视化管理运行时配置（性能、速率限制、健康检查、账号管理等），修改即时生效并传播到运行时
-- **模型映射**：将请求中的模型名映射到实际使用的模型（如 gpt-4o → gemini-2.5-pro）
-- **访问密钥**：签发/编辑/停用/吊销可分发的入站密钥，列表直接显示状态、用量与权限范围（与下面的「API Key 管理」无关，那管的是第三方**出站** Key）
-- **API Key 管理**：集中管理第三方大模型 API Key（OpenAI/Anthropic/Gemini/OpenRouter/自定义），支持导入导出
-- Playground：在线测试 API 请求。每条回复下方显示思考时间、首字时间（TTFT）、输出速度（字/秒）和总耗时，等待时实时计时，并在思考档位中新增「不思考（最快）」选项。
-- 实时日志：结构化表格展示，支持方向过滤、文本搜索、分页（每页15条）、JSON 详情面板，日志持久化到磁盘（重启不丢失）。日志页会显示流式请求的真实总耗时与首字时间（TTFT）。
-- 深色/浅色主题切换，响应式移动端适配
+- Chinese visual management interface with API Key authentication
+- Top-right control bar: theme toggle, service restart, logout
+- Dashboard: real-time uptime counter, QR code cards (image zoom support), system info (version/Python/OS/memory/CPU/PID/mode), config management, account status overview, available models list
+- **Hot-update resources**: `api/` directory volume mount, QR code images and text config changes take effect on page refresh without container rebuild
+- Account management: add accounts (paste the whole Cookie header directly) / delete accounts, edit labels online, update individual cookies, health checks
+- **Settings page**: visual runtime config management (performance, rate limiting, health checks, account management), changes take effect immediately
+- **Model mapping**: map request model names to actual models (e.g., gpt-4o → gemini-2.5-pro)
+- **Access keys**: issue / edit / disable / revoke distributable inbound keys, with state, usage and scope shown right in the list (unrelated to "API Key management" below, which manages third-party **outbound** keys)
+- **API Key management**: centralized third-party model API Key management (OpenAI/Anthropic/Gemini/OpenRouter/custom), import/export support
+- Playground: online API testing. Under each reply, it displays thinking time, time to first token (TTFT), output speed (chars/s), and total duration, shows a live elapsed timer while waiting, and adds a "No thinking (fastest)" thinking level option.
+- Real-time logs: structured table display, direction filter, text search, pagination (15 per page), JSON detail panel, disk persistence (survives restart). The logs page displays the true total duration and time to first token (TTFT) for streaming requests.
+- Dark/light theme toggle, responsive mobile adaptation
 
-### 🔀 统一转发引擎
+### 🔀 Unified Forwarding Engine
 
-- 请求模型不在 Gemini Web 可用列表时，自动从 API Key 池匹配并转发到对应 Provider
-- OpenAI 兼容格式直接转发（含流式），Anthropic 格式双向转换
-- `/openai/v1/models` 自动聚合 Gemini Web 模型 + API Key 池中的第三方模型
-- 一个接口、一个 Key 调用所有大模型
-- **第三方自动兜底**（`FALLBACK_ENABLED`，默认关）：任意 Gemini 模型（flash/pro/thinking）报错（含生成超时）或返回空响应时，自动改用 API Key 池中的第三方模型原生重试，客户端无感、仍只用一个模型名；默认自动选用池中所有"适合聊天"的第三方（按名称排除 image/video/audio/embedding 等非聊天模型）、随机轮询、一个失败（报错/空）就换下一个，`FALLBACK_MODELS` 可选精确指定
+- Auto-forward requests for models not in Gemini Web's available list to matching Provider from API Key pool
+- Direct OpenAI-compatible format forwarding (including streaming), bidirectional Anthropic conversion
+- `/openai/v1/models` auto-aggregates Gemini Web models + third-party models from API Key pool
+- Single interface, single key to call all major models
+- Third-party auto-fallback (`FALLBACK_ENABLED`, off by default): when any Gemini model errors (generation timeouts included) or returns an empty response, automatically retry natively with a third-party model from the API Key pool — transparent to the client, still using just one model name; by default automatically uses all "chat-capable" third-party models in the pool (excludes non-chat models such as image/video), random round-robin, switching to the next on failure; `FALLBACK_MODELS` optionally specifies them precisely
 
-### ⚡ 高性能架构
+### ⚡ High-Performance Architecture
 
-- 基于 Python asyncio + curl_cffi，全链路非阻塞
-- Chrome TLS 指纹伪装 + 版本自动跟进，session 存活时间大幅延长
-- Pydantic 强类型校验，请求参数自动验证
-- 模块化设计，每个 API 格式独立路由文件
-- 失败自动重试，指数退避策略
+- Python asyncio + curl_cffi, fully non-blocking pipeline
+- Chrome TLS fingerprint spoofing + auto version tracking, significantly extended session lifetime
+- Pydantic strong type validation, automatic request parameter validation
+- Modular design, independent routing files for each API format
+- Automatic retry with exponential backoff
 
 ---
 
-## 🏗 技术架构
+## 📋 System Requirements
 
-```
-                           Gemini2API
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│  Client (OpenAI SDK / Claude SDK / Gemini SDK / cURL)       │
-│       |                                                     │
-│  POST /v1/chat/completions   (或 /openai/v1/...)            │
-│  POST /v1/messages           (或 /claude/v1/...)            │
-│  POST /v1beta/models/:m:generateContent (或 /gemini/...)    │
-│       |                                                     │
-│       v                                                     │
-│  +-----------+    +----------------+    +---------------+   │
-│  |  Routes   |--->|  Translation   |--->| Account Pool  |   │
-│  | (FastAPI) |    | Multi->Gemini  |    |  (负载均衡)   |   │
-│  +-----------+    +----------------+    +---------------+   │
-│                                               |             │
-│                                    ┌──────────┼────────┐    │
-│                                    v          v        v    │
-│                               Account-0  Account-1   ...   │
-│                                (Client)   (Client)          │
-│                                                             │
-│  +-----------+    +----------------+    +---------------+   │
-│  |   Auth    |    | Fingerprint    |    | Health Check  |   │
-│  |  API Key  |    | TLS+UA+Header  |    |  Scheduled    |   │
-│  +-----------+    +----------------+    +---------------+   │
-│                                                             │
-│  +-----------+    +----------------+    +---------------+   │
-│  |  Cookie   |    | Version Sync   |    |   Jitter      |   │
-│  | Persist   |    | Chrome Auto    |    | Human-like    |   │
-│  +-----------+    +----------------+    +---------------+   │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-                           |
-              Fingerprint Layer (curl_cffi)
-          Chrome TLS + 动态 UA + 完整 Cookie
-                           |
-                           v
-                   gemini.google.com
-             /BardChatUi/StreamGenerate
-```
-
----
-
-## 📋 系统要求
-
-| 依赖 | 版本 | 说明 |
-|------|------|------|
-| Python | 3.12+ | 推荐 3.12，低版本未测试 |
-| Docker | 20.10+ | 可选，推荐使用 Docker 部署 |
-| Google 账号 | — | 需能正常访问 [gemini.google.com](https://gemini.google.com) |
-| 浏览器 | Chrome / Edge | 用于获取 Cookie（仅部署时需要） |
+| Dependency | Version | Notes |
+|-----------|---------|-------|
+| Python | 3.12+ | Recommended 3.12, older versions untested |
+| Docker | 20.10+ | Optional, Docker deployment recommended |
+| Google Account | — | Must have normal access to [gemini.google.com](https://gemini.google.com) |
+| Browser | Chrome / Edge | For cookie extraction (deployment only) |
 
 > [!TIP]
-> 使用 Docker 部署无需本地安装 Python 环境，只需 Docker 和有效的 Cookie 即可。
+> Docker deployment requires no local Python installation, just Docker and valid cookies.
 
-### 💾 小内存机器
+### 💾 Low-Memory Machines
 
-实测（v1.6.54，挂 3 个账号连续运行数小时）：整个服务约占 **85～105 MB 内存**，空闲时 CPU 不到 1%；服务自身处理一个请求约 2 毫秒，耗时几乎全在等谷歌生成。
+Measured on v1.6.54 with 3 accounts after several hours of uptime: the whole service uses about **85–105 MB of RAM** and under 1% CPU when idle. The service's own work per request takes about 2 ms; almost all of the time is spent waiting for Google to generate.
 
-- **按上面的占用推算，256 MB 内存可以运行，推荐 512 MB 以上**（含系统与 Docker 本身）；每多一个账号大约多几 MB。
-- 会随时间慢慢变大的主要是**用量统计**（`data/usage-stats.json` 里的历史快照，默认保留 30 天；实测 9.7 MB 的文件读进内存约 14 MB）。内存紧张时可以（面板「设置」页同样能改）：
-  - 缩短保留天数：`USAGE_STATS_RETENTION_DAYS=7`；
-  - 拉长采集间隔：`USAGE_STATS_INTERVAL=900`；
-  - 或直接关闭统计：`USAGE_STATS_ENABLED=false`（面板的用量统计页就不再有数据）。
-- 镜像约 312 MB，只占硬盘、不占内存；`linux/amd64` 与 `linux/arm64` 都可以直接拉取。
+- **Based on the figures above, 256 MB of RAM should be enough; 512 MB or more is recommended** (including the OS and Docker itself). Each extra account adds a few MB.
+- The part that grows over time is mainly **usage statistics** (the history snapshots in `data/usage-stats.json`, kept for 30 days by default; a 9.7 MB file takes about 14 MB in memory). If memory is tight (these can also be changed on the panel's Settings page):
+  - keep less history: `USAGE_STATS_RETENTION_DAYS=7`;
+  - sample less often: `USAGE_STATS_INTERVAL=900`;
+  - or turn statistics off: `USAGE_STATS_ENABLED=false` (the panel's usage page will then have no data).
+- The image is about 312 MB on disk and does not count toward RAM; both `linux/amd64` and `linux/arm64` can be pulled directly.
 
 ---
 
-## ⚡ 快速部署
+## ⚡ Quick Deployment
 
-> 📖 详细部署文档：[简体中文](docs/zh-CN/DEPLOY.md) | [繁體中文](docs/zh-TW/DEPLOY.md) | [English](docs/en/DEPLOY.md) | [日本語](docs/ja/DEPLOY.md) | [한국어](docs/ko/DEPLOY.md)
+> 📖 Detailed deployment guide: [DEPLOY.md](docs/en/DEPLOY.md)
 
-> **前置条件**：你需要一个能正常使用 Gemini 的 Google 账号。
+> **Prerequisite**: You need a Google account with normal Gemini access.
 
-### 1. 获取 Cookie
+### 1. Get Cookies
 
 > [!IMPORTANT]
-> **谷歌 2026-11-20 改版后，只有下面这两个值已经不够了。** 只带 `__Secure-1PSID` / `__Secure-1PSIDTS` 打开 Gemini 会被跳到谷歌登录页、以未登录访客身份运行（只剩一个 Auto 模型，其他模型一律报错）。现在需要浏览器里**完整的谷歌 Cookie**，包括 `gemini.google.com` 自己的 `OSID` / `__Secure-OSID`；只有这两个值的账号会被判为认证失败（状态 `expired`），错误信息是「谷歌要求完整 Cookie（含 gemini.google.com 的 OSID），请把浏览器插件升级到 1.4.0 或在面板粘贴整段 Cookie」。
-> - **推荐**：装浏览器插件 [**gemini2api-plugin**](https://github.com/xwteam/gemini2api-plugin) **1.4.0 及以上**，它会把整套 Cookie（含 `OSID`）自动推过来；1.3.x 及更早只推这两个值，请升级。
-> - **手动**：直接在面板「账号管理」→「添加账号」或「更新 Cookie」里粘贴**整段 Cookie**（添加账号时粘贴整段后无需再填下面两个值）：开发者工具 → **Network**（网络）→ 任选一个发往 `gemini.google.com` 的请求 → Request Headers 里的 `Cookie`，整段复制。（首次通过 `.env` / `accounts.json` 启动时可按下面步骤填写这两个值，之后再到面板「更新 Cookie」粘贴整段；账号标签也可在面板里直接在线修改。）
-> - 完整 Cookie 只保存在该账号的 `data/cookies/<hash>.json`，`.env` / `accounts.json` 照旧只存这两个值；每个请求按 Cookie 的真实域名发送（`OSID` 只发给 gemini.google.com）。
+> **Since Google's 2026-11-20 change, the two values below are no longer enough.** With only `__Secure-1PSID` / `__Secure-1PSIDTS`, Gemini redirects to the Google sign-in page and runs as a signed-out guest (a single Auto model; every other model fails). You now need the **full set of Google cookies** from your browser, including `gemini.google.com`'s own `OSID` / `__Secure-OSID`. An account with only these two values is reported as an authentication failure (status `expired`) with the message "Google now requires the full cookie set (including the OSID cookie of gemini.google.com): upgrade the browser plugin to 1.4.0 or paste the whole Cookie header in the panel".
+> - **Recommended:** install the browser extension [**gemini2api-plugin**](https://github.com/xwteam/gemini2api-plugin) **1.4.0 or later**; it pushes the full set (including `OSID`) automatically. 1.3.x and earlier push only these two values — please upgrade.
+> - **Manually:** paste the **whole Cookie header** directly in the panel's "Account Management" → "Add Account" or "Update Cookie" (when pasting the whole header in "Add Account", the two fields below can be left empty): DevTools → **Network** → pick any request to `gemini.google.com` → copy the entire `Cookie` value under Request Headers. (If bootstrapping first via `.env` / `accounts.json`, you can still fill in the two values below and later paste the whole header under "Update Cookie"; account labels can also be edited online in the panel.)
+> - The full set is stored only in the account's `data/cookies/<hash>.json`; `.env` / `accounts.json` still hold just these two values. Every request sends cookies by their real domain (`OSID` goes to gemini.google.com only).
 
-1. 使用 Chrome 或 Edge 浏览器访问 [gemini.google.com](https://gemini.google.com)
-2. 登录你的 Google 账号，确保能正常使用 Gemini 对话
-3. 按 `F12` 打开开发者工具
-4. 点击顶部 **Application**（应用程序）标签
-5. 左侧栏找到 **Cookies** -> 点击 `https://gemini.google.com`
-6. 在 Cookie 列表中找到以下两个值：
+1. Open Chrome or Edge browser and visit [gemini.google.com](https://gemini.google.com)
+2. Log in with your Google account and verify Gemini works normally
+3. Press `F12` to open Developer Tools
+4. Click the **Application** tab at the top
+5. In the left sidebar, find **Cookies** -> click `https://gemini.google.com`
+6. Find these two values in the cookie list:
 
-| Cookie 名称 | 说明 |
-|-------------|------|
-| `__Secure-1PSID` | 以 `g.` 开头的长字符串，通常几十个字符 |
-| `__Secure-1PSIDTS` | 较短的字符串 |
+| Cookie Name | Description |
+|-------------|-------------|
+| `__Secure-1PSID` | Long string starting with `g.`, typically dozens of characters |
+| `__Secure-1PSIDTS` | Shorter string |
 
-7. 建议在无痕模式下操作，获取到所需值后立即关闭窗口，避免页面刷新导致 Cookie 轮换失效
+7. Recommended to operate in incognito mode, close the window immediately after getting values to avoid cookie rotation issues
 
 > [!TIP]
-> 可以在搜索框中输入 `__Secure-1P` 快速过滤。双击 Value 列即可复制完整值。
+> Search for `__Secure-1P` in the search box for quick filtering. Double-click the Value column to copy the full value.
 
 > [!WARNING]
-> Cookie 有有效期，过期后需要重新获取。如果服务突然无法使用，优先检查 Cookie 是否失效。
+> Cookies expire over time. If the service suddenly stops working, check if cookies have expired first.
 
-### 2. Docker 部署
+### 2. Docker Deployment
 
 ```bash
-# 克隆仓库
+# Clone repository
 git clone https://github.com/xwteam/gemini2api.git
 cd gemini2api
 
-# 创建环境变量文件
+# Create environment file
 cp .env.example .env
 ```
 
-编辑 `.env` 文件，填入你的 Cookie：
+Edit `.env` file and add your cookies:
 
 ```env
-GEMINI_PSID=g.a000xxx...（粘贴你的 __Secure-1PSID 完整值）
-GEMINI_PSIDTS=sidts-xxx...（粘贴你的 __Secure-1PSIDTS 完整值）
+GEMINI_PSID=g.a000xxx...(paste your full __Secure-1PSID value)
+GEMINI_PSIDTS=sidts-xxx...(paste your full __Secure-1PSIDTS value)
 ```
 
 > [!IMPORTANT]
-> 注意事项：
-> - 值不需要加引号
-> - 不要有多余的空格或换行
-> - 确保复制的是完整值，不要遗漏末尾字符
+> Important notes:
+> - Values don't need quotes
+> - No extra spaces or newlines
+> - Ensure you copy the complete value, don't miss the end
 
-启动服务：
+Start the service:
 
 ```bash
 docker compose up -d
 ```
 
-查看日志确认启动成功：
+Check logs to confirm successful startup:
 
 ```bash
 docker compose logs -f
-# 看到 "Account pool ready: 1/1 active" 表示账号池就绪
-# 看到 "SNlM0e not found" 表示 Cookie 无效，需要重新获取
+# "Account pool ready: 1/1 active" means account pool is ready
+# "SNlM0e not found" means cookie is invalid, need to get new one
 ```
 
-### 多账号配置（可选）
+### Multi-Account Configuration (Optional)
 
-如需使用多个 Google 账号实现负载均衡，创建 `data/accounts.json`（放在挂载卷里，升级重建容器不会丢）：
+To use multiple Google accounts for load balancing, create `data/accounts.json` (inside the mounted volume, so it survives container recreation on upgrade):
 
 ```json
 {
@@ -335,98 +294,98 @@ docker compose logs -f
       "id": "account-0",
       "psid": "g.a000xxx...",
       "psidts": "sidts-xxx...",
-      "label": "主账号"
+      "label": "Main Account"
     },
     {
       "id": "account-1",
       "psid": "g.a000yyy...",
       "psidts": "sidts-yyy...",
-      "label": "备用账号"
+      "label": "Backup Account"
     }
   ]
 }
 ```
 
 > [!TIP]
-> 不创建 `data/accounts.json` 时，服务自动使用 `.env` 中的单账号模式。也可以通过 `POST /admin/accounts` API 在运行时动态添加账号。
+> Without `data/accounts.json`, the service automatically uses single-account mode from `.env`. You can also dynamically add accounts via `POST /admin/accounts` API at runtime.
 
-### Cookie 自动保活
+### Cookie Auto-Keep-Alive
 
-gemini2api 内置 Cookie 自动轮换机制：默认每 30 分钟（`REFRESH_INTERVAL`，硬下限 10 分钟）通过 Google RotateCookies API 刷新 `__Secure-1PSIDTS`，配合 batchexecute 心跳模拟浏览器活跃行为，延长 session 寿命。
+gemini2api has built-in cookie auto-rotation: it refreshes `__Secure-1PSIDTS` every 30 minutes by default (`REFRESH_INTERVAL`, with a hard floor of 10 minutes) via the Google RotateCookies API, combined with a batchexecute heartbeat to simulate browser activity and extend session lifetime.
 
 > [!IMPORTANT]
-> **`REFRESH_INTERVAL` 的默认值已由 5 分钟改为 30 分钟，并在代码里夹了 10 分钟的硬下限**（配得更小会被自动抬到 10 并在启动日志里点名）。
-> 原因：以前轮换循环**只在「启动时拿不到 token」的情况下才会被拉起**，正常启动的网关其实从不轮换，Cookie 过几个小时就死（[issue #11](https://github.com/xwteam/gemini2api/issues/11)）。现在改成启动就常驻，同一个间隔下对 Google 的后台请求量会涨到约 3.5 倍，所以间隔必须相应放宽——轮换太勤在 Google 看来很像自动化，容易触发风控、反而把 session 搞死。
+> **The default for `REFRESH_INTERVAL` changed from 5 minutes to 30 minutes, and the code now clamps it to a 10-minute floor** (smaller values are raised to 10 and named in the startup log).
+> Why: the rotation loop used to be started **only when the gateway failed to obtain a token at boot**, which means a normally started gateway never rotated at all and its cookies died after a few hours ([issue #11](https://github.com/xwteam/gemini2api/issues/11)). Now that the loop is always resident, the same interval would raise background traffic to Google roughly 3.5×, so the interval has to widen to match — rotating too often looks automated to Google and tends to get the session flagged, which kills it faster than not rotating.
 
-如需手动添加账号或更新 Cookie，可通过 Web 面板的「账号管理」→「添加账号」或「更新 Cookie」直接粘贴**整段 Cookie**（含 `OSID`），无需重启服务；账号标签也可在面板在线修改，见上面「1. 获取 Cookie」里的说明。
-
-> [!NOTE]
-> Cookie 寿命受 Google 风控策略影响，数据中心 IP 通常可维持数小时。如 Cookie 频繁过期，建议使用住宅 IP 或增加账号数量做轮询。
-
-#### 两种保活方式：服务端轮换 / 浏览器插件推送
-
-同一个谷歌会话**只能由一方轮换**：浏览器和服务端各自调 RotateCookies 时，后一方拿着已被对方换掉的旧 `__Secure-1PSIDTS` 去换就会 401、整个会话被踢下线（表现为「经常掉线、要重新登录」）。所以每个账号在两种方式里二选一：
-
-- **服务端轮换**（默认）：本服务按 `REFRESH_INTERVAL` 定时调 RotateCookies。新添加的账号、面板「更新 Cookie」、脚本 / curl 提交的 cookie 都走这种方式。
-- **浏览器保活**：配套浏览器插件 [**gemini2api-plugin**](https://github.com/xwteam/gemini2api-plugin) 装在你本地的浏览器（住宅 IP）里，由浏览器维持会话，插件把新 cookie 推给本服务。**插件推送成功的账号会自动改为浏览器保活，服务端从此不再轮换它**（按请求头 `X-Gemini2API-Keepalive` 识别；不带这个头的旧版插件按它请求自带的 `Origin: chrome-extension://…` 识别）。插件需 **1.4.0 及以上**：它推送整套 Cookie（含 `gemini.google.com` 的 `OSID`）；1.3.x 及更早只推 `__Secure-1PSID` / `__Secure-1PSIDTS`，谷歌 2026-11-20 改版后这样的账号只能以访客身份运行，会被判为认证失败。
-
-补充说明：
-
-- 面板账号卡片会给浏览器保活的账号显示「浏览器保活」标签；`GET /admin/status` 的每个账号都带 `keepalive_mode`（`server` / `browser`）。
-- 想交回服务端轮换（比如改用无痕窗口取的 cookie——窗口一关就没人轮换了），在面板「更新 Cookie」里重新提交一次即可。
-- 浏览器保活的账号靠那个浏览器维持：浏览器长时间不开，cookie 会过期，账号会变成 `expired`。
-- 记录保存在 `data/keepalive-modes.json`，键是 PSID 的 SHA-256 前 16 位（与 `data/cookies/` 下的文件名同一算法），不含任何 cookie 值。记录跟着 PSID 走：重新登录换了 PSID，旧记录就不再适用，新 PSID 由谁推来就按谁记——插件推来的仍是浏览器保活；面板 / 脚本推来的，以及通过面板「添加账号」加进来的（包括删掉后用同一份 cookie 加回来的）是服务端轮换。
-- 仓库自带的 Playwright 续期边车（`docker compose --profile refresher`）本身就是一个浏览器，推送时带同一个请求头，它推过的账号同样记为浏览器保活。
-- **插件请绑定账号 ID**（插件侧边栏顶部「绑定本浏览器负责的账号 ID」）。没绑定时，插件 v1.2.3 只要在 `/admin/status` 里看到任何 `expired` 账号，每轮轮询（默认 60 秒）都会先刷新一次浏览器里的 Gemini 标签页、再按 PSID 匹配账号：池里有不属于这个浏览器的账号失效时，你正在用的 Gemini 页面会被反复刷新，正在输入的内容可能会丢。现在「会话被打回登录页」也报 `expired`，这种情况比以前常见。浏览器自己也掉了登录时同样会每轮刷新，在浏览器里重新登录即可。
+To manually add an account or update cookies, use the Web panel's "Account Management" → "Add Account" or "Update Cookie" and paste the **whole Cookie header** (including `OSID`) directly without restarting the service; account labels can also be edited online in the panel — see "1. Get Cookies" above.
 
 > [!NOTE]
-> 账号状态 `expired` 现在也包括「**谷歌会话被打回登录页**」（cookie 已失效）。以前这种账号仍显示 `active`、只有 `is_healthy` 为 `false`，浏览器插件看不见、不会去救。会话被打回登录页、且谷歌已对这份 cookie 的 RotateCookies 回过 401 之后，服务端（刷新循环和自愈都一样）不再拿同一份 cookie 白调 RotateCookies，只继续探测会话，偶发故障能自己恢复；只是被打回登录页、谷歌还没拒绝过的会话照旧轮换（PSIDTS 过期的会话往往一次轮换就能救回来）；插件或面板换上新 cookie 后账号立即回到 `active`，不用再点「检测」。
+> Cookie lifetime is affected by Google's risk control policies. Datacenter IPs typically last several hours. If cookies expire frequently, consider using residential IPs or adding more accounts for rotation.
 
-### 3. 验证
+#### Two ways to keep cookies alive: server rotation / browser extension
+
+A Google session can **only be rotated by one side**: when the browser and the server both call RotateCookies, whichever goes second presents an `__Secure-1PSIDTS` the other side has already replaced, gets a 401, and the whole session is logged out (it shows up as "keeps dropping, have to log in again"). So every account uses exactly one of two modes:
+
+- **Server rotation** (default): this service calls RotateCookies every `REFRESH_INTERVAL`. Newly added accounts, and cookies submitted through the panel's "Update Cookie", scripts or curl, all use this mode.
+- **Browser keep-alive**: the companion browser extension [**gemini2api-plugin**](https://github.com/xwteam/gemini2api-plugin) runs in your local browser (residential IP); the browser keeps the session alive and the extension pushes the fresh cookies to this service. **An account whose cookies the extension pushed successfully switches to browser keep-alive automatically, and the server stops rotating it** (recognized by the `X-Gemini2API-Keepalive` request header; older extension versions that do not send it are recognized by the `Origin: chrome-extension://…` their requests carry). The extension must be **1.4.0 or later**: it pushes the full cookie set (including `gemini.google.com`'s `OSID`); 1.3.x and earlier push only `__Secure-1PSID` / `__Secure-1PSIDTS`, and since Google's 2026-11-20 change such an account only runs as a guest and is reported as an authentication failure.
+
+More details:
+
+- The panel's account cards show a "Browser keep-alive" tag on such accounts; every account in `GET /admin/status` carries `keepalive_mode` (`server` / `browser`).
+- To hand an account back to server rotation (e.g. you switched to cookies taken from an incognito window — nobody rotates them once the window is closed), submit the cookie again through the panel's "Update Cookie".
+- A browser-kept account depends on that browser: if it stays closed for long, the cookies expire and the account becomes `expired`.
+- The record lives in `data/keepalive-modes.json`, keyed by the first 16 hex characters of the PSID's SHA-256 (the same scheme as the file names under `data/cookies/`); it holds no cookie values. The record follows the PSID: after logging in again (a new PSID) the old record no longer applies, and the new PSID is recorded according to whoever pushes it — still browser keep-alive when the extension pushes it; server rotation when the panel or a script pushes it, or when it is added through the panel's "Add Account" (including re-adding a deleted account with the same cookies).
+- The bundled Playwright refresher sidecar (`docker compose --profile refresher`) is itself a browser and sends the same header, so the accounts it pushes are recorded as browser keep-alive too.
+- **Bind the Account ID in the extension** ("bind the Account ID this browser owns" at the top of its sidebar). Without it, extension v1.2.3 reloads the Gemini tab in your browser on every poll (every 60 seconds by default) as soon as `/admin/status` lists any `expired` account, and only then matches accounts by PSID — so while an account that does not belong to this browser is expired, the Gemini page you are using keeps being reloaded and whatever you were typing may be lost. Since `expired` now also covers sessions redirected to the login page, this happens more often than before. The same reload loop happens when the browser itself has been logged out; logging in again in the browser fixes it.
+
+> [!NOTE]
+> Account status `expired` now also covers "**the Google session was redirected to the login page**" (the cookies are no longer valid). Such accounts used to show `active` with only `is_healthy: false`, so the browser extension never noticed and never came to the rescue. Once the session has been redirected to the login page and Google has answered RotateCookies for these very cookies with a 401, the server (the rotation loop and self-healing alike) stops calling RotateCookies in vain with the same cookies and only keeps probing the session, so a transient glitch still recovers on its own; a session that is merely redirected to the login page and has not been rejected by Google keeps being rotated (a session whose PSIDTS has expired is often rescued by a single rotation); once the extension or the panel supplies fresh cookies the account is back to `active` immediately — no need to click "Check".
+
+### 3. Verification
 
 ```bash
-# 健康检查
+# Health check
 curl http://localhost:5918/health
 # {"status":"ok","service":"gemini2api"}
 
-# 查看可用模型（需要 API Key，首次启动在日志中查看）
+# View available models (requires API Key, check logs on first startup)
 curl http://localhost:5918/openai/v1/models \
-  -H "Authorization: Bearer sk-你的API密钥"
+  -H "Authorization: Bearer sk-your-api-key"
 
-# 发送测试请求
+# Send test request
 curl -X POST http://localhost:5918/openai/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
+  -H "Authorization: Bearer sk-your-api-key" \
   -d '{"model":"gemini-2.0-flash","messages":[{"role":"user","content":"hi"}]}'
 ```
 
-看到 AI 回复的文字即部署成功。如果返回 401，请检查 API Key 是否正确。
+Seeing AI response text means deployment succeeded. If you get 401, check your API Key.
 
 ---
 
-## 🧪 接入示例
+## 🧪 Integration Examples
 
 > [!NOTE]
-> 所有 API 请求都需要携带 API Key。支持两种方式：
-> - `Authorization: Bearer sk-xxx`（推荐，兼容 OpenAI/Claude SDK）
+> All API requests require an API Key. Two authentication methods supported:
+> - `Authorization: Bearer sk-xxx` (recommended, compatible with OpenAI/Claude SDKs)
 > - `x-api-key: sk-xxx`
 >
-> API Key 在首次启动时自动生成并写入 `.env` 文件，可在日志中查看或手动修改。
+> API Key is auto-generated on first startup and written to `.env`, visible in logs or manually editable.
 
 <details>
-<summary><b>OpenAI SDK（Python）</b></summary>
+<summary><b>OpenAI SDK (Python)</b></summary>
 
 ```python
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="sk-你的API密钥",
+    api_key="sk-your-api-key",
     base_url="http://localhost:5918/openai/v1"
 )
 
 for chunk in client.chat.completions.create(
     model="gemini-2.0-flash",
-    messages=[{"role": "user", "content": "用三句话解释相对论"}],
+    messages=[{"role": "user", "content": "Explain relativity in three sentences"}],
     stream=True
 ):
     print(chunk.choices[0].delta.content or "", end="")
@@ -435,20 +394,20 @@ for chunk in client.chat.completions.create(
 </details>
 
 <details>
-<summary><b>Claude SDK（Python）</b></summary>
+<summary><b>Claude SDK (Python)</b></summary>
 
 ```python
 import anthropic
 
 client = anthropic.Anthropic(
-    api_key="sk-你的API密钥",
+    api_key="sk-your-api-key",
     base_url="http://localhost:5918/claude"
 )
 
 msg = client.messages.create(
     model="gemini-2.0-flash",
     max_tokens=4096,
-    messages=[{"role": "user", "content": "写一个快速排序的Python实现"}]
+    messages=[{"role": "user", "content": "Write a Python quicksort implementation"}]
 )
 print(msg.content[0].text)
 ```
@@ -459,33 +418,33 @@ print(msg.content[0].text)
 <summary><b>cURL</b></summary>
 
 ```bash
-# 非流式请求
+# Non-streaming request
 curl -X POST http://localhost:5918/openai/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
+  -H "Authorization: Bearer sk-your-api-key" \
   -d '{"model":"gemini-2.0-flash","messages":[{"role":"user","content":"Hi"}]}'
 
-# 流式请求
+# Streaming request
 curl -X POST http://localhost:5918/openai/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
+  -H "Authorization: Bearer sk-your-api-key" \
   -d '{"model":"gemini-2.0-flash","messages":[{"role":"user","content":"Hi"}],"stream":true}'
 ```
 
 </details>
 
 <details>
-<summary><b>函数调用</b></summary>
+<summary><b>Function Calling</b></summary>
 
 ```python
 response = client.chat.completions.create(
     model="gemini-2.0-flash",
-    messages=[{"role": "user", "content": "北京今天天气怎么样"}],
+    messages=[{"role": "user", "content": "What's the weather in Beijing today"}],
     tools=[{
         "type": "function",
         "function": {
             "name": "get_weather",
-            "description": "获取指定城市的天气",
+            "description": "Get weather for a city",
             "parameters": {
                 "type": "object",
                 "properties": {"city": {"type": "string"}},
@@ -496,486 +455,324 @@ response = client.chat.completions.create(
 )
 ```
 
-### 🎨 AI 生成图片
-
-```bash
-# 方式一：对话里说"画图"，回复直接带图片（本地 URL，可渲染）
-curl -X POST http://localhost:5918/v1/chat/completions \
-  -H "Authorization: Bearer sk-你的API密钥" \
-  -H "Content-Type: application/json" \
-  -d '{"model":"gemini-pro","messages":[{"role":"user","content":"generate an image of a cute cat"}]}'
-
-# 方式二：OpenAI 兼容图片接口，返回 b64_json
-curl -X POST http://localhost:5918/v1/images/generations \
-  -H "Authorization: Bearer sk-你的API密钥" \
-  -H "Content-Type: application/json" \
-  -d '{"model":"gemini-pro","prompt":"a cute cat","n":1}'
-```
-
-> 返回全分辨率原图（如 1408×768）。对话接口返回可访问的本地图片 URL，`/images/generations` 返回 b64_json。
-
 </details>
 
 ---
 
-## 📡 API 端点
+## 📡 API Endpoints
 
-> 📖 详细 API 文档：[简体中文](docs/zh-CN/API.md) | [繁體中文](docs/zh-TW/API.md) | [English](docs/en/API.md) | [日本語](docs/ja/API.md) | [한국어](docs/ko/API.md)
+> 📖 Detailed API documentation: [API.md](docs/en/API.md)
 
-<details>
-<summary><b>点击展开完整端点列表</b></summary>
+### OpenAI Compatible (`/openai/v1`)
 
-> **两套路径并存**：每家接口同时提供「带前缀路径」和「标准裸路径」。标准裸路径让官方 SDK 填 `base_url` 时无需加后缀，开箱即用；带前缀路径用于三家明确区分。下表「端点」列基于带前缀路径，括号内标注等价的裸路径。
+| Method | Endpoint | Function |
+|--------|----------|----------|
+| GET | `/models` | Available models list |
+| POST | `/chat/completions` | Chat completion (streaming + tool calling) |
+| POST | `/responses` | OpenAI Responses API (text / streaming / tool calling; used by newer clients like Codex CLI) |
 
-### OpenAI 兼容（`/openai/v1` 或裸 `/v1`）
+### Claude Compatible (`/claude/v1`)
 
-| 方法 | 端点 | 功能 |
-|------|------|------|
-| GET | `/models` | 可用模型列表 |
-| POST | `/chat/completions` | 对话补全（支持流式 + 工具调用 + 生图） |
-| POST | `/responses` | OpenAI Responses API（文本/流式/工具调用，Codex CLI 等新客户端使用） |
-| POST | `/images/generations` | AI 生成图片（返回 b64_json） |
+| Method | Endpoint | Function |
+|--------|----------|----------|
+| GET | `/models` | Models list |
+| GET | `/models/{id}` | Model details |
+| POST | `/messages` | Message generation (streaming + tool calling) |
+| POST | `/messages/count_tokens` | Token count estimation |
 
-### Claude 兼容（`/claude/v1`；对话入口同时挂裸 `/v1`）
+### Gemini Native (`/gemini/v1beta`)
 
-| 方法 | 端点 | 功能 |
-|------|------|------|
-| GET | `/models` | 模型列表（仅 `/claude/v1`，裸 `/v1/models` 归 OpenAI 格式） |
-| GET | `/models/{id}` | 模型详情（仅 `/claude/v1`） |
-| POST | `/messages` | 消息生成（支持流式 + 工具调用，裸 `/v1/messages` 可用） |
-| POST | `/messages/count_tokens` | Token 计数估算（裸 `/v1/messages/count_tokens` 可用） |
+| Method | Endpoint | Function |
+|--------|----------|----------|
+| GET | `/models` | Models list |
+| POST | `/models/{m}:generateContent` | Content generation |
+| POST | `/models/{m}:streamGenerateContent` | Streaming generation (Chunked JSON) |
 
-### Gemini 原生（`/gemini/v1beta` 或裸 `/v1beta`）
+### Admin Interface (`/admin`)
 
-| 方法 | 端点 | 功能 |
-|------|------|------|
-| GET | `/models` | 模型列表 |
-| POST | `/models/{m}:generateContent` | 内容生成 |
-| POST | `/models/{m}:streamGenerateContent` | 流式生成（Chunked JSON） |
+> Full admin endpoints (with request/response examples) are in [API.md](docs/en/API.md); the table below is the complete list.
 
-### Deep Research（`/gemini/v1beta/deepresearch`）
+| Method | Endpoint | Function |
+|--------|----------|----------|
+| GET | `/status` | Service status (account pool overview + rotation strategy) |
+| GET | `/system-info` | System info (version/Python/OS/memory/CPU/PID/run mode) |
+| GET | `/accounts` | All accounts list and status |
+| POST | `/accounts` | Dynamically add new account (supports full cookie set) |
+| PATCH | `/accounts/{id}` | Edit account label |
+| DELETE | `/accounts/{id}` | Remove account |
+| GET | `/accounts/{id}/check` | Check single account status |
+| GET | `/check-account` | Check all accounts status |
+| POST | `/reload-cookies` | Hot-update cookies (no container restart) |
+| PUT | `/accounts/{id}/cookies` | Update cookies for a specific account |
+| GET | `/health-history` | Recent health check records |
+| GET | `/usage-stats/summary` | Usage statistics summary |
+| GET | `/usage-stats/history` | Historical trend data |
+| GET | `/settings` | Get current editable config (grouped) |
+| POST | `/settings` | Batch-update config (hot-reloads memory + writes `data/settings-overrides.json`; also writes `.env`) |
+| GET | `/api-keys` | API Key list (keys masked) |
+| GET | `/api-keys/catalog` | Provider catalog (built-in model lists) |
+| POST | `/api-keys` | Add API Key |
+| DELETE | `/api-keys/{id}` | Delete API Key |
+| PATCH | `/api-keys/{id}/status` | Toggle Key status (enable/disable) |
+| PATCH | `/api-keys/{id}/label` | Edit Key label |
+| POST | `/api-keys/import` | Bulk-import Keys |
+| GET | `/api-keys/export` | Export all Keys (masked by default, `?reveal=true` for plaintext) |
+| POST | `/api-keys/batch-delete` | Bulk-delete |
+| POST | `/api-keys/models` | Probe available models for a given Provider/base_url |
+| GET | `/verify` | Verify API Key validity (used for login) |
+| POST | `/restart` | Restart service (one-click restart from top-right of panel) |
+| GET | `/check-update` | Check whether a new version is available |
+| POST | `/update` | Trigger update to the latest version |
+| GET | `/logs` | Structured log pagination query |
+| GET | `/logs/state` | Log recording state |
+| POST | `/logs/state` | Update log recording state |
+| POST | `/logs/clear` | Clear logs |
+| GET | `/logs/{id}` | Single log detail |
+| GET | `/model-mapping` | Get all model mappings |
+| POST | `/model-mapping` | Add/update model mapping |
+| DELETE | `/model-mapping/{alias}` | Delete model mapping |
+| GET | `/web-chats` | List sessions accumulated on the Gemini web side per account (read-only) |
+| POST | `/cleanup-web-chats` | Manually trigger cleanup of expired web sessions (runs asynchronously in background) |
 
-| 方法 | 端点 | 功能 |
-|------|------|------|
-| POST | `/` | 同步深度研究（规划->调研->综合报告） |
-| POST | `/stream` | 流式研究（实时进度推送） |
-| POST | `/interact` | 异步任务模式（创建->轮询结果） |
-
-### 管理接口（`/admin`）
-
-| 方法 | 端点 | 功能 |
-|------|------|------|
-| GET | `/status` | 服务状态（账号池概览 + 轮询策略） |
-| GET | `/system-info` | 系统信息（版本/Python/OS/内存/CPU/PID/运行模式） |
-| GET | `/accounts` | 所有账号列表及状态 |
-| POST | `/accounts` | 动态添加新账号（支持整套 Cookie） |
-| PATCH | `/accounts/{id}` | 修改账号标签 |
-| DELETE | `/accounts/{id}` | 移除指定账号 |
-| GET | `/accounts/{id}/check` | 检测单个账号状态 |
-| GET | `/check-account` | 检测所有账号状态 |
-| POST | `/reload-cookies` | 热更新 Cookie（无需重启容器） |
-| PUT | `/accounts/{id}/cookies` | 更新指定账号的 Cookie |
-| GET | `/health-history` | 最近健康检查记录 |
-| GET | `/usage-stats/summary` | 用量统计概览（累计请求数、错误率、延迟、轮换成功率） |
-| GET | `/usage-stats/history` | 历史趋势数据（支持 granularity 和 hours 参数） |
-| GET | `/settings` | 获取当前可编辑配置（分组返回） |
-| POST | `/settings` | 批量更新配置（热更新内存 + 写入 `data/settings-overrides.json`，同时照写 `.env`） |
-| GET | `/api-keys` | API Key 列表（密钥脱敏） |
-| GET | `/api-keys/catalog` | Provider 目录（内置模型列表） |
-| POST | `/api-keys` | 添加 API Key |
-| DELETE | `/api-keys/{id}` | 删除 API Key |
-| PATCH | `/api-keys/{id}/status` | 切换 Key 状态（启用/禁用） |
-| PATCH | `/api-keys/{id}/label` | 修改 Key 标签 |
-| POST | `/api-keys/import` | 批量导入 Key |
-| GET | `/api-keys/export` | 导出所有 Key（默认脱敏，`?reveal=true` 取明文） |
-| POST | `/api-keys/batch-delete` | 批量删除 |
-| POST | `/api-keys/models` | 探测某 Provider/base_url 下可用模型列表 |
-| GET | `/verify` | 验证 API Key 有效性（登录用） |
-| POST | `/restart` | 重启服务（面板右上角一键重启） |
-| GET | `/check-update` | 检查是否有新版本 |
-| POST | `/update` | 触发更新到最新版本 |
-| GET | `/logs` | 结构化日志分页查询（支持 direction/search/limit/offset） |
-| GET | `/logs/state` | 日志记录状态（enabled/paused） |
-| POST | `/logs/state` | 更新日志记录状态 |
-| POST | `/logs/clear` | 清空日志 |
-| GET | `/logs/{id}` | 单条日志详情 |
-| GET | `/model-mapping` | 获取所有模型映射 |
-| POST | `/model-mapping` | 添加/更新模型映射 |
-| DELETE | `/model-mapping/{alias}` | 删除模型映射 |
-| GET | `/web-chats` | 列出账号在 Gemini 网页端堆积的会话（只读） |
-| POST | `/cleanup-web-chats` | 手动触发清理超期网页会话（后台异步执行） |
-
-> 访问密钥的 6 个 `/admin/access-keys` 端点见下文 [🔑 访问密钥](#-访问密钥)。
-
-### 系统
-
-| 方法 | 端点 | 功能 |
-|------|------|------|
-| GET | `/health` | 健康检查（Docker 探针适配） |
-
-</details>
-
-**管理接口使用示例：**
-
-```bash
-# 查看账号池状态
-curl http://localhost:5918/admin/accounts \
-  -H "Authorization: Bearer sk-你的API密钥"
-
-# 动态添加新账号
-curl -X POST http://localhost:5918/admin/accounts \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
-  -d '{"psid":"g.a000新的值","psidts":"sidts-新的值","label":"我的第二个账号"}'
-
-# 移除账号
-curl -X DELETE http://localhost:5918/admin/accounts/account-1 \
-  -H "Authorization: Bearer sk-你的API密钥"
-
-# 检测单个账号状态
-curl http://localhost:5918/admin/accounts/account-0/check \
-  -H "Authorization: Bearer sk-你的API密钥"
-
-# 热更新 Cookie（更新第一个账号）
-curl -X POST http://localhost:5918/admin/reload-cookies \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
-  -d '{"psid":"g.a000新的值","psidts":"sidts-新的值"}'
-
-# 从 .env 重新读取 Cookie
-curl -X POST http://localhost:5918/admin/reload-cookies \
-  -H "Authorization: Bearer sk-你的API密钥"
-```
+> The six `/admin/access-keys` endpoints are documented under [🔑 Access Keys](#-access-keys) below.
 
 ---
 
-## 🔑 访问密钥
+## 🔑 Access Keys
 
-除了 `.env` 里那把全权 `API_KEY`，管理员还可以签发任意多把**可分发**的访问密钥：每把独立配置有效期、请求数上限、可用账号与可用模型，发给不同的人，随时可以单独停用或吊销。面板新增「访问密钥」页做可视化管理，后端对应 `/admin/access-keys` 系列端点。
+Besides the single all-powerful `API_KEY` in `.env`, the administrator can issue any number of **distributable** access keys: each one gets its own expiry, request limit, usable accounts and allowed models, can be handed to a different person, and can be disabled or revoked individually at any time. The panel has a new "Access Keys" page for managing them visually, backed by the `/admin/access-keys` endpoints.
 
-密钥存放在 `data/access_keys.json`（`data/` 是 docker-compose 的持久化 bind mount），重启不丢。
+Keys are stored in `data/access_keys.json` (`data/` is the persistent bind mount used by docker-compose), so they survive restarts.
 
-### 每把密钥可配置的字段
+### Per-key fields
 
-| 字段 | 说明 |
+| Field | Description |
 |------|------|
-| `name` | 标签，用来记住这把 key 发给了谁（留空则显示为 `key-{id}`） |
-| `enabled` | 启停开关。停用后持有人立刻 401，但密钥仍在列表里，可随时恢复 |
-| `expires_at` | 绝对过期时间（ISO8601），到点失效 |
-| `duration_days` | 有效天数，**惰性激活**：发出去不计时，持有人第一次用它发请求才开始算 N 天 |
-| `request_limit` | 请求数上限，累计达到即失效（可用「重置用量」清零后继续用） |
-| `bound_account_ids` | 绑定账号，只允许用指定的 Gemini 账号（留空 = 不限制） |
-| `allowed_models` | 允许模型，只允许调用指定的模型名（写旧名或新真实名均可，按同模型/同族互通；留空 = 不限制） |
+| `name` | Label, so you remember who a key was handed to (shown as `key-{id}` when empty) |
+| `enabled` | On/off switch. Disabling it 401s the holder immediately, but the key stays in the list and can be re-enabled |
+| `expires_at` | Absolute expiry (ISO8601); the key dies at that moment |
+| `duration_days` | Valid days, with **lazy activation**: handing the key out starts no clock — the N days begin on the holder's first request |
+| `request_limit` | Request cap; the key dies once the cumulative count reaches it ("Reset usage" zeroes it so the key can be reused) |
+| `bound_account_ids` | Bound accounts: only the listed Gemini accounts may be used (empty = unrestricted) |
+| `allowed_models` | Allowed models: only the listed model names may be called (empty = unrestricted). Writing either old names or new real names works interchangeably as the same model/family |
 
-`expires_at` 与 `duration_days` 二选一，两者都留空则永不过期。
+`expires_at` and `duration_days` are mutually exclusive; leave both empty for a key that never expires.
 
-### 密钥状态
+### Key states
 
-| 状态 | 含义 |
+| State | Meaning |
 |------|------|
-| 有效 | 可正常调用 |
-| 已停用 | `enabled` 被管理员关掉 |
-| 未激活 | 配了 `duration_days` 但还没被用过，计时尚未开始 |
-| 已过期 | 已过 `expires_at` |
-| 已超额 | `request_count` 达到了 `request_limit` |
+| Valid | Usable |
+| Disabled | `enabled` was turned off by the administrator |
+| Not activated | `duration_days` is set but the key has never been used, so the clock has not started |
+| Expired | Past `expires_at` |
+| Limit reached | `request_count` reached `request_limit` |
 
-判定按「已停用 → 已过期 → 已超额 → 未激活 → 有效」的优先级依次短路。
+The state is resolved by short-circuiting in this priority order: Disabled → Expired → Limit reached → Not activated → Valid.
 
-### 端点
+### Endpoints
 
-| 方法 | 端点 | 功能 |
+| Method | Endpoint | Function |
 |------|------|------|
-| GET | `/admin/access-keys` | 列出所有访问密钥（含状态、用量、权限范围） |
-| GET | `/admin/access-keys/options` | 面板签发表单的候选项（账号池里的账号 + 对外可见的模型名） |
-| POST | `/admin/access-keys` | 签发密钥，`count` 可批量（上限 50） |
-| PATCH | `/admin/access-keys/{id}` | 修改配置（清空某字段要用 `clear` 数组，见下） |
-| DELETE | `/admin/access-keys/{id}` | 吊销密钥 |
-| POST | `/admin/access-keys/{id}/reset-usage` | 重置请求计数 |
+| GET | `/admin/access-keys` | List all access keys (with state, usage and scope) |
+| GET | `/admin/access-keys/options` | Choices for the panel's issue form (accounts in the pool + externally visible model names) |
+| POST | `/admin/access-keys` | Issue keys; `count` issues a batch (max 50) |
+| PATCH | `/admin/access-keys/{id}` | Change a key's configuration (clearing a field requires the `clear` array, see below) |
+| DELETE | `/admin/access-keys/{id}` | Revoke a key |
+| POST | `/admin/access-keys/{id}/reset-usage` | Reset the request counter |
 
 ```bash
-# 签发 1 把：发出去 7 天有效（首次使用才开始算）、最多 500 次请求、只能用 flash
+# Issue one key: valid 7 days from first use, at most 500 requests, flash only
 curl -X POST http://localhost:5918/admin/access-keys \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
-  -d '{"name":"张三","duration_days":7,"request_limit":500,"allowed_models":["gemini-flash"]}'
+  -H "Authorization: Bearer sk-your-api-key" \
+  -d '{"name":"Alice","duration_days":7,"request_limit":500,"allowed_models":["gemini-flash"]}'
 
-# 批量签发 20 把同样配置的密钥（名称自动编号为 试用-1 … 试用-20）
+# Issue 20 keys with the same configuration (auto-numbered trial-1 … trial-20)
 curl -X POST http://localhost:5918/admin/access-keys \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
-  -d '{"name":"试用","count":20,"duration_days":3}'
+  -H "Authorization: Bearer sk-your-api-key" \
+  -d '{"name":"trial","count":20,"duration_days":3}'
 
-# 列出所有密钥
+# List all keys
 curl http://localhost:5918/admin/access-keys \
-  -H "Authorization: Bearer sk-你的API密钥"
+  -H "Authorization: Bearer sk-your-api-key"
 
-# 停用第 3 把
+# Disable key 3
 curl -X PATCH http://localhost:5918/admin/access-keys/3 \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
+  -H "Authorization: Bearer sk-your-api-key" \
   -d '{"enabled":false}'
 
-# 解除第 3 把的请求数上限和模型限制：JSON 里传 null 表示「不改」，
-# 要清空字段必须把字段名放进 clear 数组
+# Drop key 3's request cap and model restriction: a JSON null means "leave unchanged",
+# so clearing a field requires putting its name in the clear array
 curl -X PATCH http://localhost:5918/admin/access-keys/3 \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-你的API密钥" \
+  -H "Authorization: Bearer sk-your-api-key" \
   -d '{"clear":["request_limit","allowed_models"]}'
 
-# 重置用量计数
+# Reset the usage counter
 curl -X POST http://localhost:5918/admin/access-keys/3/reset-usage \
-  -H "Authorization: Bearer sk-你的API密钥"
+  -H "Authorization: Bearer sk-your-api-key"
 ```
 
-### ⚠ 三条重要边界
+### ⚠ Three boundaries worth knowing
 
 > [!IMPORTANT]
-> **1. `.env` 的 `API_KEY` 仍然全权有效。** 访问密钥是**附加**的一层，不是替代：`API_KEY` 命中后立刻放行，不查密钥库、不计任何用量。**一把访问密钥都不签发时，鉴权行为与旧版完全一致。**
+> **1. The `API_KEY` in `.env` still has full privileges.** Access keys are an **additional** layer, not a replacement: a request matching `API_KEY` is let through immediately, without consulting the key store and without counting any usage. **With no access key issued at all, authentication behaves exactly as in previous versions.**
 >
-> **2. 访问密钥只能调业务 API，绝对访问不到 `/admin/*`。** 管理面仍然只由 `API_KEY` / `ADMIN_API_KEY` 把守。所以可以放心把访问密钥发给外人——他拿不到账号 Cookie、改不了配置，也看不到别人的密钥。
+> **2. An access key can only call the business API — it can never reach `/admin/*`.** The admin surface is still guarded solely by `API_KEY` / `ADMIN_API_KEY`. That is what makes it safe to hand an access key to an outsider: they cannot read account cookies, cannot change configuration, and cannot see anyone else's keys.
 >
-> **3. 每个业务请求都会 +1，包括 `GET /v1/models`。** 计数是在鉴权入口原子 +1 的，单调不减、不退还（上游报错也算）。有些客户端每轮对话前都会列一次模型，等于**一轮消耗 2 次**——设 `request_limit` 时记得留余量。
+> **3. Every business request counts +1, including `GET /v1/models`.** The counter is incremented atomically at the auth entry point; it is monotonic and never refunded (an upstream error still counts). Some clients list the models before every turn, which means **two counts per round** — leave headroom when setting `request_limit`.
 
 ---
 
-## ⚙ 配置说明
+## ⚙ Configuration
 
 > [!IMPORTANT]
-> **面板改过的设置项优先级高于环境变量。** 在 Web 面板「设置」页（以及「API 管理」页的兜底开关）保存过的项会写进
-> `data/settings-overrides.json`（`data/` 是 docker-compose 的持久化 bind mount），
-> 并在每次启动时回放、**覆盖**下表中对应的环境变量。
-> 这是刻意的：面板上关掉 `LOG_BODIES_ENABLED` 之后，`docker compose restart` 不能把它
-> 重新打开。
+> **Settings changed in the panel take precedence over environment variables.**
+> Anything you save on the web panel's Settings page is written to
+> `data/settings-overrides.json` (`data/` is the persistent bind mount used by
+> docker-compose) and replayed on every startup, **overriding** the corresponding
+> environment variable in the table below. This is deliberate: once you turn
+> `LOG_BODIES_ENABLED` off in the panel, `docker compose restart` must not turn it
+> back on.
 >
-> 所以：**改了 `.env` 重启却不生效**，多半就是该字段被面板覆盖了。启动日志里有一行
-> `Applied N panel setting override(s) from data/settings-overrides.json: ...` 会点名
-> 具体字段；删掉 `data/settings-overrides.json` 即可把控制权交回环境变量。
+> So if you **edited `.env`, restarted, and nothing changed**, that field is most
+> likely overridden by the panel. The startup log names the affected fields:
+> `Applied N panel setting override(s) from data/settings-overrides.json: ...`.
+> Delete `data/settings-overrides.json` to hand control back to the environment.
 
-| 变量 | 必填 | 默认值 | 说明 |
-|------|------|--------|------|
-| `GEMINI_PSID` | ✅ | — | 浏览器 `__Secure-1PSID` |
-| `GEMINI_PSIDTS` | ✅ | — | 浏览器 `__Secure-1PSIDTS` |
-| `API_KEY` | ❌ | 自动生成 | API 访问密钥（`sk-` 开头，留空则首次启动自动生成） |
-| `REFRESH_INTERVAL` | ❌ | `30` | Cookie 刷新周期（分钟，最小 10） |
-| `MAX_RETRIES` | ❌ | `3` | 失败重试次数（指数退避） |
-| `PORT` | ❌ | `5918` | 服务端口 |
-| `LOG_LEVEL` | ❌ | `info` | 日志级别（debug/info/warning/error） |
-| `RATE_LIMIT_ENABLED` | ❌ | `false` | 启用限流 |
-| `RATE_LIMIT_WINDOW` | ❌ | `60` | 限流窗口（秒） |
-| `RATE_LIMIT_MAX` | ❌ | `10` | 窗口内最大请求数 |
-| `HEALTH_CHECK_ENABLED` | ❌ | `true` | 启用定时账号状态检测 |
-| `HEALTH_CHECK_INTERVAL` | ❌ | `5` | 检测间隔（分钟） |
-| `ACCOUNTS_FILE` | ❌ | `data/accounts.json` | 多账号配置文件路径（不存在则使用环境变量单账号模式）。v1.6.49 起默认放在挂载卷 `data/` 里，容器重建（升级）不再丢面板加的账号；旧默认位置的 `accounts.json` 会在启动时复制过来 |
-| `ROTATION_STRATEGY` | ❌ | `round-robin` | 轮询策略：`round-robin`（轮询）/ `failover`（故障转移） |
-| `MAX_CONCURRENT_PER_ACCOUNT` | ❌ | `8` | 每账号最大并发请求数 |
-| `ACQUIRE_TIMEOUT` | ❌ | `60.0` | 并发满载时排队等待可用槽位的上限（秒），等不到才报错 |
-| `SAME_ACCOUNT_5XX_RETRIES` | ❌ | `1` | 遇 5xx 时同账号快速重试次数（不长退避），仍失败则 failover 换号 |
-| `FAILOVER_COOLDOWN` | ❌ | `30.0` | 被 5xx 限流的账号进入冷却的时长（秒），期间不优先选 |
-| `FINGERPRINT_CONFIG_PATH` | ❌ | `data/fingerprint.json` | 指纹配置文件路径 |
-| `VERSION_SYNC_ENABLED` | ❌ | `true` | 启用 Chrome 版本自动同步 |
-| `VERSION_SYNC_INTERVAL` | ❌ | `24` | 版本同步间隔（小时） |
-| `JITTER_ENABLED` | ❌ | `true` | 启用请求时间抖动（模拟人类行为） |
-| `USAGE_STATS_ENABLED` | ❌ | `true` | 启用用量统计（时序快照 + 持久化） |
-| `USAGE_STATS_INTERVAL` | ❌ | `300` | 快照采集间隔（秒） |
-| `USAGE_STATS_RETENTION_DAYS` | ❌ | `30` | 历史数据保留天数 |
-| `MODEL_WHITELIST` | ❌ | — | 模型白名单（逗号分隔，为空则不过滤；非空时过滤各 `/models` 列表；写旧名或新真实名均可，按同模型/同族互通） |
-| `CHAT_CLEANUP_ENABLED` | ❌ | `true` | 启用 Gemini 网页端会话自动清理 |
-| `CHAT_CLEANUP_KEEP_HOURS` | ❌ | `24.0` | 网页会话保留时长（小时），超过则清理 |
-| `CHAT_CLEANUP_INTERVAL_HOURS` | ❌ | `6.0` | 自动清理任务运行间隔（小时） |
-| `CHAT_CLEANUP_SKIP_PINNED` | ❌ | `true` | 清理时跳过置顶会话 |
-| `ADMIN_API_KEY` | ❌ | — | 管理面板/`/admin` 独立鉴权 key（留空则回退用 `API_KEY`） |
-| `CORS_ALLOW_ORIGINS` | ❌ | `*` | CORS 允许来源（逗号分隔，`*` 表示全部） |
-| `CORS_ALLOW_CREDENTIALS` | ❌ | `true` | CORS 是否允许携带凭据 |
-| `IMAGE_DOWNLOAD_SIZE_SUFFIX` | ❌ | `=s2048` | 生图代下载尺寸后缀（`=s0` 为全分辨率原图） |
-| `IMAGE_DOWNLOAD_TIMEOUT` | ❌ | `25.0` | 单次图片下载 HTTP 超时（秒） |
-| `FALLBACK_ENABLED` | ❌ | `false` | 启用 Gemini→第三方兜底：任意 Gemini 模型报错/返回空响应时，自动改用 API Key 池中的第三方模型原生重试（面板「API 管理」页的兜底开关会写进 `data/settings-overrides.json`，优先级高于这里，升级不丢） |
-| `FALLBACK_MODELS` | ❌ | — | 兜底模型（逗号分隔、按序尝试）；留空=自动选用池中所有"适合聊天"的第三方并随机轮询、失败换下一个 |
-| `DEFAULT_THINKING_LEVEL` | ❌ | `low` | 客户端没指定档位时用的档位：`off` / `low` / `medium` / `high`。`low` 实测每请求平均多约 5 秒，`off` 最快；面板「设置 → 思考」可即时切换。客户端完全没提思考时，按默认档开的思考不回传给客户端 |
-| `EXTENDED_THINKING_ENABLED` | ❌ | `true` | 思考总闸（高级/兼容项）：`false` = 四个协议一律不思考，连客户端明确要求的也忽略 |
-| `THIRDPARTY_FAILOVER_COOLDOWN` | ❌ | `180` | 第三方「同名多家」故障切换的坏家冷却秒数（0 关闭） |
-| `BARD_ERROR_CODES` | ❌ | — | Gemini 在 **HTTP 200** 正文里返回的拒绝块的 code→语义对照表，形如 `1152=rate_limit,404=session_expired`，分类可取 `rate_limit` / `session_expired` / `context_too_long` / `captcha`。**留空时所有拒绝块按未知处理（冷却该账号 + 换号重试），这是刻意的安全兜底**；配上之后各类才有专门处理（会话过期触发 Cookie 自愈、上下文超长直接回 400 不重试、人机验证让出该账号） |
-| `GEMINI_FAILURE_REPLIES` | ❌ | — | 追加谷歌的「失败套话」（用 `\|` 分隔；内置的 `I seem to be encountering an error. Can I try something else for you?` 始终生效）。整段回答恰好是其中一句时按上游失败处理（换号 / 兜底 / 502），不会当成正常回答返回，见注意事项 8 |
-| `GENERATE_TIMEOUTS` | ❌ | — | 生成超时按模型族覆盖，形如 `pro=300,flash=120`（旧配置写 `argon=` 仍按 `carbon` 生效）；留空用内置分层（flash-lite 60 / flash 120 / pro 300 / carbon 300，认不出的族回落 60）。非流式按它掐断整个请求；流式按它约束「第一次有新内容」与「相邻两次有新内容」的间隔（谷歌的心跳帧不算） |
-| `GENERATE_TIMEOUT_IMAGE` | ❌ | `180` | 疑似生图请求的生成超时（秒）。与模型族档位**取大**，流式与非流式同口径 |
-| `MODEL_BREAKER_ENABLED` | ❌ | `true` | 模型故障熔断总开关（见注意事项 7）。`false` 时照常记录状态，但绝不绕开谷歌 |
-| `MODEL_BREAKER_THRESHOLD` | ❌ | `2` | 窗口内有这么多个**不同请求**在同一模型族上疑似故障地失败就熔断（同一请求换号、重试、客户端重发只算一个） |
-| `MODEL_BREAKER_WINDOW` | ❌ | `300` | 计数窗口（秒）：这次失败的尝试开始时距上一次计入的失败超过它，计数从 1 重新开始 |
-| `MODEL_BREAKER_COOLDOWN` | ❌ | `60` | 熔断打开后的开放期（秒），期间开了兜底的 `/v1/chat/completions` 请求直接走兜底 |
-| `MODEL_BREAKER_MAX_COOLDOWN` | ❌ | `300` | 试探谷歌又失败时开放期翻倍的上限（秒），至少等于 `MODEL_BREAKER_COOLDOWN` |
-
----
-
-## ⚠ 注意事项
-
-1. **Cookie 有效期**：Google Cookie 会定期过期（通常数小时到数天不等）。服务内置自动刷新机制，但如果账号被登出或密码变更，需要重新获取 Cookie。
-
-2. **流式输出**：所有 API 端点默认流式返回。设置 `stream: false` 时，服务内部仍以流式方式接收数据，收集完毕后一次性返回完整 JSON。
-
-3. **模型可用性**：可用模型列表由各账号心跳报出的网页真实名字动态汇总（多账号取并集并保持心跳顺序），取决于你的 Google 账号权限；免费账号和 Gemini Advanced 账号看到的模型不同（如 `gemini-4-carbon` 仅在至少一个账号心跳确实报出时才列出）。服务刚启动、还没有任何账号心跳成功前会暂时回退显示 `gemini-pro` / `gemini-flash` / `gemini-flash-lite`，拿到心跳后自动切换为网页真实名字。
-
-4. **请求频率**：即使关闭了内置限流（`RATE_LIMIT_ENABLED=false`），Google 侧仍有频率限制。高频请求可能触发验证码或临时封禁，建议合理控制调用频率。
-
-5. **网络环境**：部署服务器需能直接访问 `gemini.google.com`，部分地区可能需要配置代理。
-
-6. **非流式超时与前置代理**：非流式（`stream: false`）请求的超时按模型族分层——flash-lite 60 秒、flash 120 秒、pro 与 carbon 300 秒（旧配置 `argon=` 仍等同 `carbon`；可用 `GENERATE_TIMEOUTS` 覆盖；疑似生图取 `GENERATE_TIMEOUT_IMAGE`，默认 180 秒），超时也不再重试三遍。到点后本服务回 **504**（错误类型 `timeout_error`，用各协议自己的 JSON 错误体；流式请求是协议内的错误事件），不再是纯文本的 500；开了 `FALLBACK_ENABLED` 时 `/v1/chat/completions` 会先尝试第三方兜底。超时是谷歌那边卡住，不计入账号的连续失败、不会把账号标成 `expired`（建连阶段的超时照旧先重试几次，重试用完同样按超时处理）。注意这整段时间里连接上是**零字节输出**，所以它是**首字节**超时而不是空闲超时：**pro 非流式最长要干等 300 秒，会超过常见前置代理的首字节上限**（EdgeOne 免费版 15 秒，不少反向代理默认 60 秒），客户端拿到的将是代理的 504 而不是本服务的错误体。这类场景建议直接用流式请求。 开了思考的请求还要再多几秒（默认 `low` 实测平均每请求多约 5 秒）。 flash-lite 的 60 秒是按"不思考、几秒就回"定的，默认档开思考后在长 prompt / 难题上可能偏紧，可用 `GENERATE_TIMEOUTS=flash-lite=120` 调大（生成期超时不会退回不思考重试，会直接报超时）。 **流式请求同样受这套族预算约束**：第一次有新内容（正文 / 思考 / 生成图片 / Canvas）必须在预算内到达（等响应头的时间也算在内），之后相邻两次有新内容的间隔也不能超过预算；谷歌排队时每 60 秒发一个不含任何内容的心跳帧，它**不算进展**。到点同样回协议内的 `timeout_error` 错误事件（还没流出正文时 `/v1/chat/completions` 先试第三方兜底）。过去流式只看「两次收到字节之间」的 120 秒，被谷歌的心跳一次次重置，实测客户端干等了约 240 秒。
-
-7. **模型故障熔断**：谷歌某个模型族整体故障时（例如 gemini-flash 所有账号都在排队卡住或秒回失败套话），窗口内有 `MODEL_BREAKER_THRESHOLD`（默认 2）个不同请求在这个族上疑似故障地失败（失败套话、几乎没收到数据的生成超时、一次进展都没有的流式超时），熔断就打开 `MODEL_BREAKER_COOLDOWN`（默认 60）秒：这期间**开了 `FALLBACK_ENABLED` 且有兜底候选**的 `/v1/chat/completions` 请求直接走第三方兜底，不再先白等一个预算；到期后放一个真实请求去试探谷歌，试探失败开放期翻倍（封顶 `MODEL_BREAKER_MAX_COOLDOWN`），任何成功都立即恢复。没开兜底的请求和 Claude / Gemini 原生 / Responses 一律照常调谷歌（它们的结果照样更新熔断状态）；只影响故障的那个族，同账号的其它族照常。状态见面板账号页顶部的提示和 `/admin/status` 的 `model_breakers`；进程重启后清空。
-
-8. **谷歌的失败套话**：谷歌侧故障时 Gemini 有时会秒回一句固定的 `I seem to be encountering an error. Can I try something else for you?` 代替回答。整段回答恰好是这句（或 `GEMINI_FAILURE_REPLIES` 里追加的某句）时按上游失败处理——换号重试、`/v1/chat/completions` 可走兜底、否则回 502 `api_error`——不会当成正常回答返回，也不会写进会话记录；流式请求会先扣住还可能长成这句的开头，确认不是才放出去（回答开头最多晚几个字）。 v1.6.47 起，谷歌的「语言模型」类拒答套话（如 `我只是一个语言模型，无法提供这方面的帮助。`、`I'm just a language model, so I can't help you with that.`）同样内置识别、同样换号 / 兜底 / 502，但不计入模型熔断（它也可能是某个问题每次都会触发的真拒答）。
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `GEMINI_PSID` | ✅ | — | Browser `__Secure-1PSID` |
+| `GEMINI_PSIDTS` | ✅ | — | Browser `__Secure-1PSIDTS` |
+| `API_KEY` | ❌ | Auto-generated | API access key (`sk-` prefix, auto-generated on first startup if empty) |
+| `REFRESH_INTERVAL` | ❌ | `30` | Cookie refresh interval (minutes, minimum 10) |
+| `MAX_RETRIES` | ❌ | `3` | Retry count on failure (exponential backoff) |
+| `PORT` | ❌ | `5918` | Service port |
+| `LOG_LEVEL` | ❌ | `info` | Log level (debug/info/warning/error) |
+| `RATE_LIMIT_ENABLED` | ❌ | `false` | Enable rate limiting |
+| `RATE_LIMIT_WINDOW` | ❌ | `60` | Rate limit window (seconds) |
+| `RATE_LIMIT_MAX` | ❌ | `10` | Max requests per window |
+| `HEALTH_CHECK_ENABLED` | ❌ | `true` | Enable scheduled account health checks |
+| `HEALTH_CHECK_INTERVAL` | ❌ | `5` | Check interval (minutes) |
+| `ACCOUNTS_FILE` | ❌ | `data/accounts.json` | Multi-account config file path (falls back to single-account mode from env vars if absent). Since v1.6.49 the default lives in the mounted `data/` volume, so accounts added in the panel survive container recreation (upgrades); an `accounts.json` at the old default location is copied over on startup |
+| `ROTATION_STRATEGY` | ❌ | `round-robin` | Rotation strategy: `round-robin` / `failover` |
+| `MAX_CONCURRENT_PER_ACCOUNT` | ❌ | `8` | Max concurrent requests per account |
+| `ACQUIRE_TIMEOUT` | ❌ | `60.0` | Max time (seconds) to queue for a free slot when at full concurrency before erroring |
+| `SAME_ACCOUNT_5XX_RETRIES` | ❌ | `1` | Quick same-account retries on 5xx (no long backoff); failover to another account if still failing |
+| `FAILOVER_COOLDOWN` | ❌ | `30.0` | Cooldown (seconds) for an account rate-limited by 5xx, during which it is not preferred |
+| `FINGERPRINT_CONFIG_PATH` | ❌ | `data/fingerprint.json` | Fingerprint config file path |
+| `VERSION_SYNC_ENABLED` | ❌ | `true` | Enable Chrome version auto-sync |
+| `VERSION_SYNC_INTERVAL` | ❌ | `24` | Version sync interval (hours) |
+| `JITTER_ENABLED` | ❌ | `true` | Enable request time jitter (simulate human behavior) |
+| `USAGE_STATS_ENABLED` | ❌ | `true` | Enable usage statistics (time-series snapshots + persistence) |
+| `USAGE_STATS_INTERVAL` | ❌ | `300` | Snapshot collection interval (seconds) |
+| `USAGE_STATS_RETENTION_DAYS` | ❌ | `30` | Historical data retention (days) |
+| `MODEL_WHITELIST` | ❌ | — | Model whitelist (comma-separated; empty = no filtering; when set, filters each `/models` list; writing either old names or new real names works interchangeably as the same model/family) |
+| `CHAT_CLEANUP_ENABLED` | ❌ | `true` | Enable auto-cleanup of Gemini web sessions |
+| `CHAT_CLEANUP_KEEP_HOURS` | ❌ | `24.0` | Web session retention (hours); older ones are cleaned up |
+| `CHAT_CLEANUP_INTERVAL_HOURS` | ❌ | `6.0` | Auto-cleanup task run interval (hours) |
+| `CHAT_CLEANUP_SKIP_PINNED` | ❌ | `true` | Skip pinned sessions during cleanup |
+| `ADMIN_API_KEY` | ❌ | — | Separate auth key for the admin panel / `/admin` (empty falls back to `API_KEY`) |
+| `CORS_ALLOW_ORIGINS` | ❌ | `*` | CORS allowed origins (comma-separated; `*` means all) |
+| `CORS_ALLOW_CREDENTIALS` | ❌ | `true` | Whether CORS allows credentials |
+| `IMAGE_DOWNLOAD_SIZE_SUFFIX` | ❌ | `=s2048` | Generated-image download size suffix (`=s0` for full-resolution original) |
+| `IMAGE_DOWNLOAD_TIMEOUT` | ❌ | `25.0` | Per-image download HTTP timeout (seconds) |
+| `FALLBACK_ENABLED` | ❌ | `false` | Enable Gemini → third-party fallback: when any Gemini model (flash/pro/thinking) errors or returns an empty response, automatically retry natively with a third-party model from the API Key pool (the fallback switch on the panel's API management page is saved to `data/settings-overrides.json`, takes priority over this, and survives upgrades) |
+| `FALLBACK_MODELS` | ❌ | — | Fallback models (comma-separated, tried in order); empty = automatically use all "chat-capable" third-party models in the pool (excludes non-chat models such as image/video/audio/embedding by name) with random round-robin, switching to the next one whenever one fails (errors or empty) |
+| `DEFAULT_THINKING_LEVEL` | ❌ | `low` | Level used when the client does not specify a level: `off` / `low` / `medium` / `high`. `low` adds about 5 s per request on average (measured), `off` is fastest; switch it live in the panel (Settings → Thinking). When the client does not mention thinking at all, thinking turned on by this default is never returned to the client |
+| `EXTENDED_THINKING_ENABLED` | ❌ | `true` | Thinking master switch (advanced/compatibility): `false` = no thinking on any of the four protocols, even when a client explicitly asks |
+| `THIRDPARTY_FAILOVER_COOLDOWN` | ❌ | `180` | Cooldown in seconds for a failing third-party provider when several share one model name (0 disables) |
+| `BARD_ERROR_CODES` | ❌ | — | Lookup table mapping the codes of reject blocks Gemini returns inside an **HTTP 200** body to a meaning, e.g. `1152=rate_limit,404=session_expired`; categories are `rate_limit` / `session_expired` / `context_too_long` / `captcha`. **While empty, every reject block is treated as unknown (cool down that account + retry on another), which is a deliberate safe fallback**; once configured, each category gets its own handling (session expiry triggers cookie self-healing, context overflow returns 400 without retrying, CAPTCHA releases that account) |
+| `GEMINI_FAILURE_REPLIES` | ❌ | — | Extra "generic failure" sentences Google sends instead of an answer (separated by `\|`; the built-in `I seem to be encountering an error. Can I try something else for you?` always applies). An answer that is exactly one of them is handled as an upstream failure (switch account / fallback / 502) instead of being returned as a normal answer; see note 8 |
+| `GENERATE_TIMEOUTS` | ❌ | — | Per-model-family override for the generation timeout, e.g. `pro=300,flash=120`; empty uses the built-in tiers (flash-lite 60 / flash 120 / pro 300 / carbon 300, with 60 as the fallback for unrecognized families; old `argon=` overrides are still accepted as equivalent to `carbon`). A non-streaming request is cut at this budget; a streaming request must make its first progress, and each next progress, within it (Google's empty heartbeat frames do not count) |
+| `GENERATE_TIMEOUT_IMAGE` | ❌ | `180` | Generation timeout (seconds) for requests that look like image generation. Takes the **larger** of this and the model-family tier, for streaming and non-streaming alike |
+| `MODEL_BREAKER_ENABLED` | ❌ | `true` | Master switch of the model outage breaker (see note 7). With `false` the state is still recorded, but Google is never bypassed |
+| `MODEL_BREAKER_THRESHOLD` | ❌ | `2` | Open the breaker once this many **different requests** fail in a suspected-outage way on the same model family within the window (account switches, retries and client resends of one request count once) |
+| `MODEL_BREAKER_WINDOW` | ❌ | `300` | Counting window (seconds): when a failing attempt started more than this long after the last counted failure, the count restarts at 1 |
+| `MODEL_BREAKER_COOLDOWN` | ❌ | `60` | How long the breaker stays open (seconds); meanwhile `/v1/chat/completions` requests with a fallback go straight to the fallback |
+| `MODEL_BREAKER_MAX_COOLDOWN` | ❌ | `300` | Cap (seconds) for doubling the open period when probing Google fails again; never below `MODEL_BREAKER_COOLDOWN` |
+| `TOKEN_PRICES` | ❌ | — | Price table for the **estimated USD** figure on access-key usage, e.g. `gemini-4-neon=2.0/12.0,gemini-4-hydrogen=0.75/3.75` or `gemini-pro=2.0/12.0,gemini-flash=0.75/3.75` (model name=input/output price, USD per million tokens; accepts both new real names and old names). Empty uses the built-in defaults; malformed entries are ignored silently and an unpriced model shows `—` in the panel. **Statistics only — it takes no part in any quota decision**, and it is not a bill (the service uses Gemini Web and costs nothing by itself) |
 
 ---
 
-## 🗂 项目结构
+## ⚠ Important Notes
 
-```
-gemini2api/
-├── app/
-│   ├── main.py                 # 应用入口，中间件注册
-│   ├── config.py               # Pydantic 配置管理
-│   ├── core/
-│   │   ├── gemini_client.py    # Gemini Web 核心客户端
-│   │   ├── account_pool.py     # 多账号池（负载均衡 + 运行时策略切换）
-│   │   ├── auth.py             # API Key 验证
-│   │   ├── api_key_store.py    # 第三方 API Key 存储池
-│   │   ├── api_forwarder.py    # 统一转发引擎
-│   │   ├── model_mapping.py    # 模型名映射（别名→实际模型）
-│   │   ├── stream.py           # 流式工具函数
-│   │   └── fingerprint/        # 反检测与协议伪装
-│   │       ├── config.py       # 指纹配置管理（加载/保存/热更新）
-│   │       ├── header_builder.py # 动态请求头构建器
-│   │       ├── cookie_jar.py   # 完整 Cookie 持久化管理
-│   │       ├── version_sync.py # Chrome 版本自动同步
-│   │       └── jitter.py       # 请求时间抖动
-│   ├── models/                 # Pydantic 数据模型
-│   │   ├── openai.py
-│   │   ├── claude.py
-│   │   └── gemini.py
-│   ├── routers/                # API 路由（每种格式独立）
-│   │   ├── openai.py
-│   │   ├── claude.py
-│   │   ├── gemini.py
-│   │   ├── research.py
-│   │   ├── admin.py
-│   │   ├── settings.py         # 设置管理 API
-│   │   ├── api_keys.py         # API Key 管理 API
-│   │   └── model_mapping.py    # 模型映射 API
-│   └── utils/                  # 工具函数
-│       ├── tools.py            # 函数调用桥接
-│       └── prompt.py           # 消息格式化
-├── data/                       # 持久化数据（Docker 卷挂载）
-│   ├── fingerprint.json        # 指纹配置（自动生成）
-│   ├── api-keys.json           # 第三方 API Key 存储
-│   ├── model-mapping.json      # 模型名映射配置
-│   ├── usage-stats.json        # 用量统计快照
-│   └── cookies/                # Cookie 持久化存储
-├── api/                        # 热更新资源（Docker 卷挂载，修改无需重建）
-│   ├── qr-config.json          # 二维码卡片文字配置
-│   ├── wechat-qr.png           # 微信二维码图片
-│   └── sponsor-qr.png          # 赞助二维码图片
-├── static/                     # Web 管理面板
-│   ├── index.html              # 主页面（SPA）
-│   ├── login.html              # 登录页
-│   ├── app/                    # JS/CSS 核心模块
-│   └── components/             # HTML 组件片段
-├── Dockerfile                  # 多阶段构建
-├── docker-compose.yml          # 编排配置
-├── accounts.json.example       # 多账号配置示例
-├── requirements.txt
-└── .env.example
-```
+1. **Cookie Expiration**: Google cookies expire periodically (typically hours to days). The service has built-in auto-refresh, but if your account is logged out or password changed, you need new cookies.
+
+2. **Streaming Output**: All API endpoints stream by default. When `stream: false`, the service still receives streaming data internally and returns complete JSON after collection.
+
+3. **Model Availability**: Available models depend on your Google account permissions and what Gemini Web currently serves. Each account's heartbeat dynamically discovers the real web model names (e.g. `gemini-auto`, `gemini-4-hydrogen`, `gemini-4-neon`, and `gemini-4-carbon` when reported by an account's heartbeat), and automatically follows future web renames or additions without a service upgrade. Right after startup before the first heartbeat succeeds, model listings temporarily fall back to `gemini-pro` / `gemini-flash` / `gemini-flash-lite`; legacy aliases and previously seen names continue to work.
+
+4. **Request Frequency**: Even with rate limiting disabled (`RATE_LIMIT_ENABLED=false`), Google has its own limits. High-frequency requests may trigger CAPTCHAs or temporary bans. Control request frequency appropriately.
+
+5. **Network Environment**: The deployment server must have direct access to `gemini.google.com`. Some regions may need proxy configuration.
+
+6. **Non-streaming timeouts and front proxies**: non-streaming (`stream: false`) requests time out per model family — flash-lite 60s, flash 120s, pro and carbon 300s (override with `GENERATE_TIMEOUTS`; old `argon=` overrides still work as `carbon`; requests that look like image generation use `GENERATE_TIMEOUT_IMAGE`, default 180s) — and a timeout is no longer retried three times. When the budget runs out the service now answers **504** (error type `timeout_error`, in each protocol's own JSON error body; streaming requests get an in-protocol error event) instead of a plain-text 500, and with `FALLBACK_ENABLED` on, `/v1/chat/completions` tries the third-party fallback first. A timeout means Google stalled, so it does not count toward the account's consecutive failures and never marks the account `expired` (a connect-phase timeout is still retried a few times first; once those retries run out it is handled as a timeout too). Note that the connection emits **zero bytes** for that entire window, so this is a **time-to-first-byte** timeout rather than an idle timeout: **a non-streaming pro request can sit silent for up to 300 seconds, which exceeds the first-byte limit of common front proxies** (15 seconds on the EdgeOne free tier, 60 seconds by default on many reverse proxies), and the client then receives the proxy's 504 instead of this service's error body. Prefer streaming requests for that scenario. Requests with thinking on take a few seconds longer still (the default `low` adds about 5 s per request on average, measured). The 60 s for flash-lite was set for "no thinking, answers in seconds"; with the default level thinking, it may be tight for long prompts or hard questions. Raise it with `GENERATE_TIMEOUTS=flash-lite=120` (a generation-phase timeout is not retried without thinking; it is reported as a timeout). **Streaming requests are bound by the same family budget**: the first progress (new body text, thinking, generated images or Canvas) must arrive within the budget (waiting for the response headers counts too), and so must every next progress; the empty heartbeat frame Google sends every 60 seconds while a request is queued **does not count as progress**. When the budget runs out the client gets the in-protocol `timeout_error` event (with no body text sent yet, `/v1/chat/completions` tries the third-party fallback first). The streaming path used to watch only the 120 s between two received bytes, which Google's heartbeats kept resetting; a client was measured waiting about 240 s.
+
+7. **Model outage breaker**: when a whole Gemini model family fails on Google's side (for example every account's gemini-flash is stuck in Google's queue or instantly returns the generic failure sentence), and `MODEL_BREAKER_THRESHOLD` (default 2) different requests fail on that family in a suspected-outage way within the window (the failure sentence, a generation timeout with almost no data received, a streaming timeout without any progress), the breaker opens for `MODEL_BREAKER_COOLDOWN` (default 60) seconds: `/v1/chat/completions` requests **with `FALLBACK_ENABLED` on and a fallback candidate available** go straight to the third-party fallback instead of first waiting out a whole budget. When the period ends, one real request probes Google; a failed probe doubles the period (capped at `MODEL_BREAKER_MAX_COOLDOWN`), and any success closes the breaker at once. Requests without a fallback and the Claude / Gemini native / Responses protocols always call Google as usual (their results still update the breaker). Only the failing family is affected; the account's other families keep working. The state is shown at the top of the panel's Accounts page and in `model_breakers` of `/admin/status`; it is cleared on restart.
+
+8. **Google's generic failure sentence**: during an outage Gemini sometimes answers within a second with the fixed sentence `I seem to be encountering an error. Can I try something else for you?` instead of an answer. When the whole answer is exactly that sentence (or one added via `GEMINI_FAILURE_REPLIES`), it is handled as an upstream failure (another account is tried, `/v1/chat/completions` may use the fallback, otherwise 502 `api_error`) and it is never returned as a normal answer or saved into the conversation record. Streaming requests hold back an opening that could still grow into that sentence and release it as soon as it diverges (the first few words of an answer may arrive a moment later). Since v1.6.47, Gemini's canned "language model" refusals (e.g. `I'm just a language model, so I can't help you with that.` or the Chinese `我只是一个语言模型，无法提供这方面的帮助。`) are recognised built-in and handled the same way (another account / fallback / 502), but they do not count toward the model circuit breaker, because one particular question can trigger such a refusal every time.
 
 ---
 
-## 🗺 开发路线
+## 🗺 Roadmap
 
-- [x] OpenAI / Claude / Gemini 三格式兼容
-- [x] 流式响应 + 函数调用
-- [x] Deep Research 深度研究
-- [x] Docker 部署
-- [x] API Key 认证
-- [x] Cookie 热更新 API
-- [x] 账号状态定时检测
-- [x] 多账号轮询（负载均衡）
-- [x] Web 管理面板
-- [x] 反检测与协议伪装（TLS 指纹一致性、Cookie 持久化、版本自动同步）
-- [x] 设置页面（可视化配置管理）
-- [x] API Key 管理（第三方大模型 Key 集中管理）
-- [x] 统一转发引擎（一个接口调用所有大模型）
-- [x] 模型映射（别名→实际模型名，如 gpt-4o → gemini-2.5-pro）
-- [x] 轮换策略运行时热更新（设置修改即时生效）
-- [x] 仪表盘系统信息面板（版本/Python/OS/内存/CPU/PID/运行模式）
-- [x] 对话上下文持久化
-- [x] GitHub Actions 自动构建镜像
-- [x] 图片/文件上传支持
-- [x] AI 生成图片（`/v1/images/generations` + 三家对话接口嵌图）
-- [x] 自动清理 Gemini 网页端堆积会话（定时删旧会话，保留置顶）
-- [x] [issues #2](https://github.com/xwteam/gemini2api/issues/2) 自定义 Gemini Gem 支持（管理面板列出/新建/改/删 + 暴露为模型名调用）
-- [x] [issues #6](https://github.com/xwteam/gemini2api/issues/6) [#7](https://github.com/xwteam/gemini2api/issues/7) 原生 Gemini 扩展思考支持（`reasoning_effort` 开启，思考过程逐帧流式、先于答案显示 + 模型测试面板「思考」开关 + 一键关不影响普通聊天）
-- [x] API 管理页 Gemini 兜底一键开关（即时开/关兜底链并持久化，无需改 .env 重启）
+- [x] OpenAI / Claude / Gemini triple format compatibility
+- [x] Streaming responses + function calling
+- [x] Deep Research multi-step research
+- [x] Docker deployment
+- [x] API Key authentication
+- [x] Cookie hot-update API
+- [x] Scheduled account health checks
+- [x] Multi-account rotation (load balancing)
+- [x] Web management panel
+- [x] Anti-detection & protocol spoofing
+- [x] Settings page (visual config management)
+- [x] API Key management (third-party model keys)
+- [x] Unified forwarding engine (single interface for all models)
+- [x] Model mapping (alias → actual model)
+- [x] Auto-cleanup of accumulated web sessions (periodically delete old sessions, keep pinned)
+- [ ] Image/file upload support
+- [x] [issues #2](https://github.com/xwteam/gemini2api/issues/2) Custom Gemini Gem support (panel list / create / update / delete + expose as a model name)
+- [x] [issues #6](https://github.com/xwteam/gemini2api/issues/6) [#7](https://github.com/xwteam/gemini2api/issues/7) Native Gemini extended thinking (enable via `reasoning_effort`; reasoning streams frame-by-frame before the answer + "Thinking" toggle in the Playground panel + one-click off, never affects normal chat)
+- [x] Gemini fallback toggle in API Management (instant on/off with persistence, no .env edit or restart needed)
 
 ---
 
-## ☕ 赞赏 & 共享
+## ☕ Support & Contribute
 
-> 完整内容请查看 [SPONSORS.md](SPONSORS.md)
+Find this helpful? Buy the author a coffee or join the WeChat group for support. For full details, see [SPONSORS.md](SPONSORS.md).
 
-觉得有帮助？请作者喝杯咖啡，或加入微信交流群获取使用帮助。二维码见页面顶部。
+PRs and Issues welcome.
 
-Gemini2API 主要由个人维护，欢迎通过代码、文档、修复或 PR 参与建设。
-
-**参与贡献：**
-
-1. Fork 本仓库
-2. 创建分支 `git checkout -b feature/your-feature`
-3. 提交代码 `git commit -m "feat: add something"`
-4. 推送并创建 Pull Request
+1. Fork this repository
+2. Create a branch `git checkout -b feature/your-feature`
+3. Commit code `git commit -m "feat: add something"`
+4. Push and create a Pull Request
 
 ---
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-感谢所有在 [Issues](https://github.com/xwteam/gemini2api/issues) 里提交 bug 复现、日志、兼容性反馈和功能建议的用户。这些反馈直接推动了 Cookie 保活、多账号轮换、模型选择、多语言支持、Web 面板等核心能力的迭代。
+Thanks to everyone who submitted bug reports, logs, compatibility feedback, and feature suggestions through [Issues](https://github.com/xwteam/gemini2api/issues). Your feedback directly drove the development of Cookie persistence, multi-account rotation, model selection, multi-language support, and the Web panel.
 
-特别感谢 [@Cznorth](https://github.com/Cznorth) 在 [PR #16](https://github.com/xwteam/gemini2api/pull/16) 里第一时间指出：谷歌 2026-11-20 改版后，Google 登录页里也带着 `SNlM0e`，服务会把它误当成有效会话、实际以未登录访客身份运行。这个判断已经合入 [v1.6.53](https://github.com/xwteam/gemini2api/releases/tag/v1.6.53)，同一版还补上了整套 Cookie 登录与浏览器插件 1.4.0。
+Special thanks to [@Cznorth](https://github.com/Cznorth) for [PR #16](https://github.com/xwteam/gemini2api/pull/16), which was the first to point out that after Google's 2026-11-20 change the Google sign-in page also carries an `SNlM0e`, so the service mistook it for a valid session and actually ran as a logged-out guest. This check is part of [v1.6.53](https://github.com/xwteam/gemini2api/releases/tag/v1.6.53), which also adds full-cookie sign-in and browser plugin 1.4.0.
 
-同时感谢 [@lianjiexu08-ui](https://github.com/lianjiexu08-ui) 提交的 [PR #12](https://github.com/xwteam/gemini2api/pull/12)、[#13](https://github.com/xwteam/gemini2api/pull/13)、[#14](https://github.com/xwteam/gemini2api/pull/14)：#12 指出了面板添加的账号在容器重建后会丢失的问题（自 v1.6.49 起账号已默认持久化保存至 `data/`），#13 在线编辑账号标签与 #14 添加账号时直接粘贴整段 Cookie 的思路已在 v1.6.55 实现。
-
----
-
-## ⭐ Star History
-
-<a href="https://star-history.com/#xwteam/gemini2api&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=xwteam/gemini2api&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=xwteam/gemini2api&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=xwteam/gemini2api&type=date&legend=top-left" />
- </picture>
-</a>
+Thanks also to [@lianjiexu08-ui](https://github.com/lianjiexu08-ui) for [PR #12](https://github.com/xwteam/gemini2api/pull/12), [#13](https://github.com/xwteam/gemini2api/pull/13), and [#14](https://github.com/xwteam/gemini2api/pull/14): #12 pointed out that accounts added through the panel were lost after container rebuilds (accounts have been stored under `data/` by default since v1.6.49), and the ideas from #13 (online label editing) and #14 (pasting the full Cookie header when adding an account) have been implemented in v1.6.55.
 
 ---
 
-## 📄 许可协议
+## 📄 License
 
-本项目采用 [非商业许可 (Non-Commercial)](LICENSE)：
+This project uses [Non-Commercial License](LICENSE):
 
-- **允许**：个人学习、研究、自用部署
-- **禁止**：任何形式的商业用途，包括但不限于出售、转售、收费代理、商业产品集成
+- **Allowed**: Personal learning, research, self-hosted deployment
+- **Prohibited**: Any commercial use including selling, reselling, paid proxies, commercial product integration
 
-本项目与 Google 无关联。使用者需自行承担风险并遵守 Google 的服务条款。
-
----
-
-## ⚠ 免责声明
-
-1. **技术性质**：Gemini2API 是一个技术研究项目，通过浏览器 Cookie 模拟访问 Google Gemini Web 界面。本项目不提供任何 AI 服务，所有生成内容均来自 Google。使用本项目可能违反 Google 服务条款，由此产生的一切后果由使用者自行承担。
-
-2. **无担保声明**：本项目按"原样"提供，不作任何明示或暗示的保证，包括但不限于适销性、特定用途适用性。开发者不对因使用本项目导致的账号封禁、数据丢失或其他任何损失承担责任。
-
-3. **数据与隐私**：本项目完全在用户本地环境运行，不收集、不上传、不存储任何用户数据。您的 Cookie 和 API Key 仅保存在本地配置中，请妥善保管，切勿泄露。
-
-4. **合规责任**：使用者应确保其使用行为符合所在地区的法律法规。严禁将本项目用于任何违法违规活动。
-
-5. **第三方服务**：本项目与 Google 无任何关联或授权关系。Google Gemini 的可用性、稳定性及内容准确性均由 Google 负责，与本项目无关。
+This project is not affiliated with Google. Users assume all risks and must comply with Google's Terms of Service.
 
 ---
 

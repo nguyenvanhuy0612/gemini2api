@@ -22,7 +22,7 @@ from app.core.thinking_stream import HiddenThoughts, drop_thought_events
 from app.core.stream import iter_with_keepalive, SSE_KEEPALIVE_FRAME, sse_keepalive_during
 from app.routers.openai import _images_to_markdown
 from app.utils.tools import build_tool_prompt, parse_tool_response_with_retry, estimate_tokens
-from app.utils.prompt import build_prompt_from_messages, extract_attachments
+from app.utils.prompt import build_initial_prompt, build_prompt_from_messages, extract_attachments
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["Responses"])
@@ -165,7 +165,7 @@ async def create_response(request: Request):
         return _error(400, f"Model '{model}' is not a Gemini model and has no third-party "
                           f"entry configured", param="model")
 
-    prompt = build_prompt_from_messages(messages_raw)
+    prompt = build_initial_prompt(messages_raw)
     has_tools = bool(tools_raw)
     if has_tools:
         prompt = build_tool_prompt(prompt, tools_raw, tool_choice)

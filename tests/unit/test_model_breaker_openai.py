@@ -261,8 +261,8 @@ def test_without_fallback_enabled_gemini_is_always_called(world, monkeypatch):
     assert world.fallback == []
 
 
-def test_without_fallback_candidates_gemini_is_always_called(world, monkeypatch):
-    monkeypatch.setattr(world.http.app.state, "api_key_pool", _KeyPool([]), raising=False)
+def test_without_fallback_candidates_gemini_is_always_called(world):
+    world.http.app.state.api_key_pool = _KeyPool([])
     _open()
     status, body = _chat(world)
     assert status == 200 and len(world.generate) == 1

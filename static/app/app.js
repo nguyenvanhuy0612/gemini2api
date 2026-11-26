@@ -668,6 +668,18 @@ function closeUpdateCookieModal() {
 // 并核对 psid / psidts 与其中的 __Secure-1PSID / __Secure-1PSIDTS 一致。
 function _cookieFromHeader(header, name) {
     const text = header.replace(/^\s*cookie:\s*/i, '');
+    if (text.includes('\t') && (text.includes('\n') || text.includes('\r')) && !text.includes(';')) {
+        for (const line of text.split(/[\r\n]+/)) {
+            const tabIdx = line.indexOf('\t');
+            if (tabIdx <= 0) continue;
+            if (line.slice(0, tabIdx).trim() === name) {
+                const rest = line.slice(tabIdx + 1).trim();
+                const nextTab = rest.indexOf('\t');
+                return nextTab > 0 ? rest.slice(0, nextTab).trim() : rest;
+            }
+        }
+        return '';
+    }
     for (const part of text.split(/[;\r\n]+/)) {
         const idx = part.indexOf('=');
         if (idx <= 0) continue;
@@ -1021,6 +1033,11 @@ async function sendPlaygroundRequest() {
 
     const token = localStorage.getItem('gemini2api_token');
     const thinkingLevel = document.getElementById('pg-thinking-level')?.value;
+    if (!_pgConversationId) {
+        _pgConversationId = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
+            ? crypto.randomUUID()
+            : `pg-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    }
     const reqBody = _pgBuildChatRequest(
         model, _pgMessages, _pgConversationId,
         thinkingLevel

@@ -30,7 +30,7 @@ from app.models.gemini import (
     GeminiModelList,
 )
 from app.utils.tools import build_tool_prompt, parse_tool_response_with_retry, estimate_tokens, is_image_generation_intent
-from app.utils.prompt import build_prompt_from_messages
+from app.utils.prompt import build_initial_prompt, build_prompt_from_messages
 from app.core.limiter import limiter, dynamic_rate_limit, rate_limit_exempt
 
 logger = logging.getLogger(__name__)
@@ -269,7 +269,7 @@ async def generate_content(model: str, req: GeminiRequest, request: Request):
 
     messages, attachments = _parse_contents(req.contents)
     system = _parse_system(req.system_instruction)
-    prompt = build_prompt_from_messages(messages, system=system)
+    prompt = build_initial_prompt(messages, system=system)
 
     has_tools = False
     # 生图意图只看最后一轮用户消息，且必须在 req.contents（未拍平）这一层取——
@@ -392,7 +392,7 @@ async def stream_generate_content(model: str, req: GeminiRequest, request: Reque
 
     messages, attachments = _parse_contents(req.contents)
     system = _parse_system(req.system_instruction)
-    prompt = build_prompt_from_messages(messages, system=system)
+    prompt = build_initial_prompt(messages, system=system)
 
     has_tools = False
     # 生图意图只看最后一轮用户消息，且必须在 req.contents（未拍平）这一层取——

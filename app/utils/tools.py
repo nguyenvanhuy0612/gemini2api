@@ -360,4 +360,6 @@ async def parse_tool_response_with_retry(text: str, regenerate) -> dict:
 
 
 def estimate_tokens(text: str) -> int:
-    return len(text) // 4
+    if not text:
+        return 0
+    return max(1, len(text) // 4)

@@ -40,7 +40,8 @@ from app.models.openai import (
 )
 from app.utils.tools import (build_tool_prompt, estimate_tokens, is_image_generation_intent,
                              is_malformed_tool_result, parse_tool_response_with_retry)
-from app.utils.prompt import build_prompt_from_messages, extract_attachments, last_user_text
+from app.utils.json_mode import build_json_mode_prompt, ensure_json_reply, parse_response_format
+from app.utils.prompt import build_initial_prompt, build_prompt_from_messages, extract_attachments, last_user_text
 from app.core.limiter import limiter, dynamic_rate_limit, rate_limit_exempt
 
 logger = logging.getLogger(__name__)
@@ -600,9 +601,9 @@ async def chat_completions(req: ChatRequest, request: Request):
                                         for b in content if isinstance(b, dict))
                 last_user_msg = content
                 break
-        prompt = last_user_msg if last_user_msg else build_prompt_from_messages(messages_raw)
+        prompt = last_user_msg if last_user_msg else build_initial_prompt(messages_raw)
     else:
-        prompt = build_prompt_from_messages(messages_raw)
+        prompt = build_initial_prompt(messages_raw)
 
     has_tools = bool(req.tools)
     # 生图意图优先：即使带 tools（agent 每请求都带），只要是明确生图意图就跳过工具模拟，
@@ -612,9 +613,12 @@ async def chat_completions(req: ChatRequest, request: Request):
     if has_tools and is_image_generation_intent(last_user_text(messages_raw)):
         has_tools = False
         logger.info("检测到生图意图，跳过工具调用模拟，直接生图")
+    json_mode, json_schema = parse_response_format(req.response_format)
     if has_tools:
         tools_raw = [t.model_dump() for t in req.tools]
         prompt = build_tool_prompt(prompt, tools_raw, req.tool_choice)
+    elif json_mode:
+        prompt = build_json_mode_prompt(prompt, json_schema)
 
     # 提取图片/文件附件（多模态），纯文本时为空列表
     attachments = extract_attachments(messages_raw)
@@ -784,6 +788,16 @@ async def chat_completions(req: ChatRequest, request: Request):
                 conversation_id=(req.conversation_id or completion_id) if conv else None,
             )
         text = parsed.get("content", text)
+    elif json_mode:
+        async def _regenerate_for_json(repair_prompt: str) -> str:
+            r = await gemini_client.generate(
+                repair_prompt, resolved_model, gemini_conv_id, attachments,
+                gem_id=gem_id, account_id=account_id,
+                extended_thinking=extended_thinking,
+            )
+            return r.get("text", "")
+
+        text = await ensure_json_reply(prompt, text, json_schema, _regenerate_for_json)
 
     return ChatResponse(
         id=completion_id,

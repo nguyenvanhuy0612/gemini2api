@@ -141,6 +141,25 @@ def build_prompt_from_messages(messages: list[dict], system: str | None = None,
     return "\n\n".join(parts)
 
 
+def build_initial_prompt(messages: list[dict], system: str | None = None,
+                         tool_prompt: str = "") -> str:
+    """Format initial prompt for Gemini Web without 'Human: ' on single user turn."""
+    if not system and not tool_prompt and len(messages) == 1:
+        msg = messages[0]
+        if isinstance(msg, dict) and msg.get("role") == "user" and not msg.get("tool_calls"):
+            content = msg.get("content", "")
+            if isinstance(content, str):
+                return content
+            if isinstance(content, list):
+                text_parts = [
+                    b["text"]
+                    for b in content
+                    if isinstance(b, dict) and isinstance(b.get("text"), str)
+                ]
+                return "\n".join(text_parts)
+    return build_prompt_from_messages(messages, system=system, tool_prompt=tool_prompt)
+
+
 def _ext_for_mime(mime: str) -> str:
     return _MIME_EXT.get((mime or "").lower(), "bin")
 

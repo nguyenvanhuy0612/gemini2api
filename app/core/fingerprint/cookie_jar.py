@@ -265,6 +265,32 @@ def cookies_from_browser(items: list[dict]) -> list[StoredCookie]:
     return _dedup(out)
 
 
+def _parse_tsv_cookie_table(text: str) -> list[StoredCookie]:
+    """Fallback: parse DevTools Application -> Storage -> Cookies TSV export."""
+    out: list[StoredCookie] = []
+    seen: set[str] = set()
+    for idx, line in enumerate(text.splitlines()):
+        line = line.strip()
+        if not line or "\t" not in line:
+            continue
+        cols = [c.strip() for c in line.split("\t") if c.strip()]
+        if len(cols) < 2:
+            continue
+        name = _check_name(cols[0], idx)
+        value = _check_value(cols[1], name)
+        if not value or name in seen:
+            continue
+        if len(out) >= MAX_IMPORTED_COOKIES:
+            raise CookieImportError(f"too many cookies (> {MAX_IMPORTED_COOKIES})")
+        seen.add(name)
+        if name in _GEMINI_HOST_ONLY_NAMES or name.startswith("__Host-"):
+            domain = GEMINI_HOST
+        else:
+            domain = GOOGLE_DOMAIN
+        out.append(StoredCookie(name=name, value=value, domain=domain, path="/", secure=True))
+    return out
+
+
 def cookies_from_header(raw: str) -> list[StoredCookie]:
     """面板粘贴的整段 `Cookie:` 请求头 → 罐里的条目。
 
@@ -275,6 +301,8 @@ def cookies_from_header(raw: str) -> list[StoredCookie]:
     text = (raw or "").strip()
     if text.lower().startswith("cookie:"):
         text = text[len("cookie:"):]
+    if "\t" in text and ("\n" in text or "\r" in text) and ";" not in text:
+        return _parse_tsv_cookie_table(text)
     out: list[StoredCookie] = []
     seen: set[str] = set()
     for idx, part in enumerate(re.split(r"[;\r\n]+", text)):

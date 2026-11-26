@@ -27,7 +27,7 @@ from app.models.claude import (
 )
 from app.routers.openai import _images_to_markdown
 from app.utils.tools import build_tool_prompt, parse_tool_response_with_retry, estimate_tokens, is_image_generation_intent
-from app.utils.prompt import build_prompt_from_messages, extract_attachments, last_user_text
+from app.utils.prompt import build_initial_prompt, build_prompt_from_messages, extract_attachments, last_user_text
 from app.core.limiter import limiter, dynamic_rate_limit, rate_limit_exempt
 
 logger = logging.getLogger(__name__)
@@ -160,7 +160,7 @@ async def create_message(req: ClaudeRequest, request: Request):
     # 模型名后缀 @think=档位（见 gemini_client.split_think_suffix），档位优先于 thinking / output_config
     req.model, think_from_suffix = split_think_suffix(req.model)
     messages_raw = [m.model_dump() for m in req.messages]
-    prompt = build_prompt_from_messages(messages_raw, system=req.system)
+    prompt = build_initial_prompt(messages_raw, system=req.system)
     attachments = extract_attachments(messages_raw)
 
     # gem 模型解析：命中则取出 gem_id/account_id，并把对话模型换成 base_model
@@ -322,7 +322,7 @@ async def count_tokens(req: ClaudeRequest):
     req.model, _ = split_think_suffix(req.model)
     ensure_model_allowed(req.model)
     messages_raw = [m.model_dump() for m in req.messages]
-    prompt = build_prompt_from_messages(messages_raw, system=req.system)
+    prompt = build_initial_prompt(messages_raw, system=req.system)
     count = estimate_tokens(prompt)
     return {"input_tokens": count}
 

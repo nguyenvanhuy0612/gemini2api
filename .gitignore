@@ -44,3 +44,6 @@ accounts.json
 .coverage
 coverage.xml
 htmlcov/
+
+*.zip
+temp/
